@@ -1,0 +1,9 @@
+# pho-graphql-v1
+
+type ExtendedObject implements ObjectNode {
+
+}
+
+type ExtendedEdge implements Edge {
+
+}

@@ -1,0 +1,13 @@
+type BlogPost @is_a(type: "Object") @extends(type: "Content") @permissions(mod:"01777" , mask: "00002") {
+  title: String! @constraints(max_length: "255") @setter @getter @index
+}
+
+# pho-graphql-schema-v1
+
+type BlogPost implements ObjectNode @edges(in:., out:..) @permissions(mod:, mask:) {
+    /** attributes **/
+}
+
+type ... implements SubscribeEdge @nodes(tail: ".., .., ..", head: ".., .., ..") @properties(binding: true) {
+    /** attributes **/
+}
