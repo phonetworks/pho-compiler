@@ -4,7 +4,7 @@ namespace Pho\Compiler\V1;
 
 use Pho\Lib\GraphQL\Parser;
 
-class FileAnalyzer {
+class FileAnalyzer extends Version {
 
     protected $ast;
 
@@ -20,7 +20,8 @@ class FileAnalyzer {
 
     public function process(): void
     {
-        foreach($this->ast->entities() as $entity) {
+        $entities = $this->ast->entities();
+        foreach($entities as $entity) {
             new EntityAnalyzer($entity);
         }
     }
