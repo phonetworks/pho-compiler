@@ -4,7 +4,7 @@ type BlogPost @is_a(type: "Object") @extends(type: "Content") @permissions(mod:"
 
 # pho-graphql-schema-v1
 
-type BlogPost implements ObjectNode @edges(in:., out:..) @permissions(mod:, mask:) {
+type BlogPost implements ObjectNode @edges(in:., out:..) @permissions(mod:, mask:) @properties(expires: 0, volatile: 0, revisions: 0) {
     /** attributes **/
 }
 
