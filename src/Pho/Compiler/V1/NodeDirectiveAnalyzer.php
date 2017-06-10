@@ -16,9 +16,10 @@ class NodeDirectiveAnalyzer {
 
     protected static function _unitProcess(PrototypeInterface $prototype, Directive $directive): void
     {
-        switch($directive->name()) {
-            case "edges":
-            case "permissions":
+        $directive_name = strtolower($directive->name());
+        if(in_array($directive_name, ["edges", "permissions", "properties"])) {
+            $class = sprintf("Node%sArgumentAnalyzer", ucfirst($directive_name));
+            $class::process($prototype, $directive->arguments());
         }
     }
 
