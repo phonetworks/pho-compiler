@@ -47,7 +47,7 @@ class EntityAnalyzer extends AbstractAnalyzer {
 
     protected static function formPrototype(string $type): PrototypeInterface
     {
-        $class = "\\Pho\\Compiler\\Prototypes\\".$type;
+        $class = "\\Pho\\Compiler\\Prototypes\\".$type."Prototype";
         if(class_exists($class)) {
             return new $class();
         }

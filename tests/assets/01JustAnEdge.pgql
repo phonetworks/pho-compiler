@@ -1,5 +1,8 @@
 # pho-graphql-v1
 
 type ExtendedEdge implements SubscribeEdge {
-    id: ID!
+    id: [ID]!,
+    second_field: custom_obj,
+    third: [blah],
+    forth: [blah]!
 }

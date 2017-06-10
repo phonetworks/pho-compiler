@@ -22,9 +22,13 @@ class SimpleTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals("id", $ast[0]["fields"][0]["name"]);
         $this->assertEquals("ID", $ast[0]["fields"][0]["type"]);
         $this->assertEquals(true, $ast[0]["fields"][0]["nullable"]);
+        $this->assertEquals(false, $ast[0]["fields"][0]["list"]);
+        $this->assertEquals(true, $ast[0]["fields"][0]["native"]);
         $this->assertEquals("custom_field", $ast[0]["fields"][1]["name"]);
         $this->assertEquals("String", $ast[0]["fields"][1]["type"]);
         $this->assertEquals(true, $ast[0]["fields"][1]["nullable"]);
+        $this->assertEquals(false, $ast[0]["fields"][1]["list"]);
+        $this->assertEquals(true, $ast[0]["fields"][1]["native"]);
         //print_r($ast);
     }
 
@@ -34,9 +38,30 @@ class SimpleTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals("ExtendedEdge", $ast[0]["name"]);
         $this->assertEquals("subscribe", $ast[0]["subtype"]);
         $this->assertEquals("edge", $ast[0]["type"]);
+
         $this->assertEquals("id", $ast[0]["fields"][0]["name"]);
         $this->assertEquals("ID", $ast[0]["fields"][0]["type"]);
         $this->assertEquals(false, $ast[0]["fields"][0]["nullable"]);
+        $this->assertEquals(true, $ast[0]["fields"][0]["list"]);
+        $this->assertEquals(true, $ast[0]["fields"][0]["native"]);
+
+        $this->assertEquals("second_field", $ast[0]["fields"][1]["name"]);
+        $this->assertEquals("custom_obj", $ast[0]["fields"][1]["type"]);
+        $this->assertEquals(true, $ast[0]["fields"][1]["nullable"]);
+        $this->assertEquals(false, $ast[0]["fields"][1]["list"]);
+        $this->assertEquals(false, $ast[0]["fields"][1]["native"]);
+
+        $this->assertEquals("third", $ast[0]["fields"][2]["name"]);
+        $this->assertEquals("blah", $ast[0]["fields"][2]["type"]);
+        $this->assertEquals(true, $ast[0]["fields"][2]["nullable"]);
+        $this->assertEquals(true, $ast[0]["fields"][2]["list"]);
+        $this->assertEquals(false, $ast[0]["fields"][2]["native"]);
+
+        $this->assertEquals("forth", $ast[0]["fields"][3]["name"]);
+        $this->assertEquals("blah", $ast[0]["fields"][3]["type"]);
+        $this->assertEquals(false, $ast[0]["fields"][3]["nullable"]);
+        $this->assertEquals(true, $ast[0]["fields"][3]["list"]);
+        $this->assertEquals(false, $ast[0]["fields"][3]["native"]);
         //print_r($ast);
     }
 

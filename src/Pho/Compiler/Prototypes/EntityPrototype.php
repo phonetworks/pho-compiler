@@ -11,7 +11,7 @@
 
 namespace Pho\Compiler\Prototypes;
 
-class Entity implements PrototypeInterface {
+class EntityPrototype implements PrototypeInterface {
 
     protected $name;
     protected $subtype; // actor, object, graph or transmit, subscribe, write, read etc.
@@ -21,7 +21,7 @@ class Entity implements PrototypeInterface {
 
     public function __construct() {
         $this->ref = new \ReflectionObject($this);
-        $this->type = strtolower($this->ref->getShortName());
+        $this->type = substr(strtolower($this->ref->getShortName()),0 , -1 * strlen("prototype")); // trimming prototype from class name
     }
 
     public function __call(string $method, array $args) //: mixed
@@ -55,12 +55,14 @@ class Entity implements PrototypeInterface {
         $this->$property = $value;
     }
 
-    public function addField(string $name, string $type, bool $is_nullable): void
+    public function addField(string $name, string $type, bool $is_nullable, bool $is_list, bool $is_native): void
     {
         $this->fields[] = [
             "name"=>$name,
             "type"=>$type,
-            "nullable"=>$is_nullable
+            "nullable"=>$is_nullable,
+            "list"=>$is_list,
+            "native"=>$is_native
         ];
     }
 
