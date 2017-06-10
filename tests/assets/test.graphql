@@ -4,10 +4,16 @@ type BlogPost @is_a(type: "Object") @extends(type: "Content") @permissions(mod:"
 
 # pho-graphql-schema-v1
 
-type BlogPost implements ObjectNode @edges(in:., out:..) @permissions(mod:, mask:) @properties(expires: 0, volatile: 0, revisions: 0) {
+type BlogPost implements ObjectNode @edges(in:., out:..) @permissions(mod:, mask:) {
     /** attributes **/
 }
 
-type ... implements SubscribeEdge @nodes(tail: ".., .., ..", head: ".., .., ..") @properties(binding: true) {
+type ... implements SubscribeEdge 
+    @nodes( tail: ".., .., ..", 
+            head: ".., .., .."
+          ) 
+    @properties(binding: true) 
+    @labels(headSingular: "", tailPlural: "") 
+{
     /** attributes **/
 }

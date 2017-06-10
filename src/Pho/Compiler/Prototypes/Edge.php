@@ -14,7 +14,15 @@ namespace Pho\Compiler\Prototypes;
 class Edge extends Entity {
 
     protected $binding;
+    
     protected $head_nodes;
     protected $tail_nodes;
+
+    protected $label_head_singular;
+    protected $label_tail_singular;
+    
+    protected $label_head_plural;
+    protected $label_tail_plural;
+
 
 }
