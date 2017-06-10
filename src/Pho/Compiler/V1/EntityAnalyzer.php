@@ -18,7 +18,8 @@ use Pho\Compiler\Prototypes\PrototypeInterface;
 class EntityAnalyzer extends AbstractAnalyzer {
 
 
-    public static function process(Definitions\Entity $entity, ?PrototypeInterface $prototype = null) {
+    public static function process(/*Definitions\Entity*/ $entity, ?PrototypeInterface $prototype = null): void 
+    {
         $interface = $entity->implementation(0);
         try {
             $type = self::getEntityType($interface);

@@ -16,7 +16,7 @@ use Pho\Compiler\Prototypes\PrototypeInterface;
 
 class FileAnalyzer extends AbstractAnalyzer   {
 
-    public static function process(string $file, ?PrototypeInterface $prototype = null): void
+    public static function process(/*string*/ $file, ?PrototypeInterface $prototype = null): void
     {
         try {
             $ast = new Parser\Parse($file);
