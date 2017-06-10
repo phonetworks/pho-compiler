@@ -57,8 +57,7 @@ class InputFileAnalyzer {
         catch(Exceptions\InvalidGraphQLTypeException $e) {
             throw $e;
         }
-        
-        new $file_analyzer($this->file);
+        $file_analyzer::process($this->file);
     }
 
 }

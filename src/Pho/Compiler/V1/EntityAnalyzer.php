@@ -1,60 +1,61 @@
 <?php
 
+/*
+ * This file is part of the Pho package.
+ *
+ * (c) Emre Sokullu <emre@phonetworks.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Pho\Compiler\V1;
 
-//use Pho\Compiler\Definitions as CompilerDefinitions;
 use Pho\Lib\GraphQL\Parser\Definitions;
 use Pho\Compiler\Prototypes;
+use Pho\Compiler\Prototypes\PrototypeInterface;
 
-class EntityAnalyzer extends Version {
+class EntityAnalyzer extends AbstractAnalyzer {
 
-    private $entity;
-    
-    private $interface;
-    private $type;
-    private $name;
 
-    private $prototype;
-
-    public function __construct(Definitions\Entity $entity) {
-        $this->entity = $entity;
-        $this->interface = $entity->implementation(0);
+    public static function process(Definitions\Entity $entity, ?PrototypeInterface $prototype = null) {
+        $interface = $entity->implementation(0);
         try {
-            $this->type = $this->getEntityType($this->interface);
+            $type = self::getEntityType($interface);
         }
         catch(Exceptions\InvalidImplementationException $e) {
             throw $e;
         }
-        $this->formPrototype();
-        $this->prototype->name($entity->name());
-        $directive_analyzer = $this->type."DirectiveAnalyzer";
+        $prototype = self::formPrototype($type);
+        $prototype->setName($entity->name());
+        $directive_analyzer = $type."DirectiveAnalyzer";
         if(class_exists($directive_analyzer)) {
-            $directive_analyzer::process($this->prototype, $entity->directives());
+            $directive_analyzer::process($entity->directives(), $prototype);
         }
         else {
             throw new Exceptions\InvalidImplementationException(
-                $this->version, 
-                $this->type
+                self::VERSION, 
+                $type
             );
         }
-        new FieldAnalyzer($entity->fields());
+        FieldAnalyzer::process($entity->fields(), $prototype);
     }
 
-    public function formPrototype(): void
+    protected static function formPrototype(string $type): PrototypeInterface
     {
-        $class = "Prototypes\\".$this->type;
+        $class = "Prototypes\\".$type;
         if(class_exists($class)) {
-            $this->prototype = new $class();
+            return new $class();
         }
         else {
             throw new Exceptions\InvalidImplementationException(
-                $this->version, 
-                $this->type
+                self::VERSION, 
+                $type
             );
         }
     }
 
-    protected function getEntityType(string $interface): string
+    protected static function getEntityType(string $interface): string
     {
         $type = substr($interface, -4);
         if($type=="Edge"||$type=="Node")

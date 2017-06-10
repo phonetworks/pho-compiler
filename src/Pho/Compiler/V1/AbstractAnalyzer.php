@@ -9,10 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Pho\Compiler\Prototypes;
+namespace Pho\Compiler\V1;
 
-interface PrototypeInterface {
+abstract class AbstractAnalyzer implements AnalyzerInterface {
 
-    public function setName(string $name): void;
+    /**
+     * Version number.
+     */
+    const V = 1;
 
 }

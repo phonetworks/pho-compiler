@@ -1,28 +1,31 @@
 <?php
 
+/*
+ * This file is part of the Pho package.
+ *
+ * (c) Emre Sokullu <emre@phonetworks.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Pho\Compiler\V1;
 
 use Pho\Lib\GraphQL\Parser;
+use Pho\Compiler\Prototypes\PrototypeInterface;
 
-class FileAnalyzer extends Version {
+class FileAnalyzer extends AbstractAnalyzer   {
 
-    protected $ast;
-
-    public function __construct(string $file)
+    public static function process(string $file, ?PrototypeInterface $prototype = null): void
     {
         try {
-            $this->ast = new Parser\Parse($file);
+            $ast = new Parser\Parse($file);
         } catch(\Exception $e) {
             throw $e;
         }
-        $this->process();
-    }
-
-    public function process(): void
-    {
-        $entities = $this->ast->entities();
+        $entities = $ast->entities();
         foreach($entities as $entity) {
-            new EntityAnalyzer($entity);
+            EntityAnalyzer::process($entity);
         }
     }
 

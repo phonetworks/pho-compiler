@@ -20,5 +20,5 @@ A Pho-compatible GraphQL schema (also called a **"PhoGQL"** file) is advised to 
 * All future versions and their patterns will be placed in the file [Types.php](https://github.com/phonetworks/pho-compiler/blob/master/src/Pho/Compiler/Types.php)
 
 ### Types
-* A PhoGL definition must implement one of ActorNode, GraphNode, ObjectNode or ReadEdge, SubscribeEdge, TransmitEdge, WriteEdge entities. For more information on these entities, check out [pho-framework](http://github.com/phonetworks/pho-framework).
+* A PhoGQL definition must implement one of ActorNode, GraphNode, ObjectNode or ReadEdge, SubscribeEdge, TransmitEdge, WriteEdge entities. For more information on these entities, check out [pho-framework](http://github.com/phonetworks/pho-framework).
 * While GraphQL allows multiple inheritance, the Pho compiler will evaluate only the first interface declared in each definition.
