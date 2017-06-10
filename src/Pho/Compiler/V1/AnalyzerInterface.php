@@ -21,6 +21,6 @@ interface AnalyzerInterface {
      * @param mixed $input
      * @param ?PrototypeInterface The prototype object or null if it's not needed yet.
      */ 
-    public static function process(/*mixed*/ $input, ?PrototypeInterface $prototype): void;
+    public static function process(/*mixed*/ $input, PrototypeInterface $prototype): void;
 
 }

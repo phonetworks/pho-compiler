@@ -16,9 +16,8 @@ use Pho\Lib\GraphQL\Parser\Definitions\Field;
 
 class FieldAnalyzer extends AbstractAnalyzer {
 
-    public static function process(/*array*/ $fields, ?PrototypeInterface $prototype): void
+    public static function process(/*array*/ $fields, PrototypeInterface $prototype): void
     {
-        if(is_null($prototype)) throw new PrototypeRequiredException(__CLASS__);
         array_walk($fields, function(Field $field) use ($prototype) {
             self::unitProcess($field, $prototype);
         }); 

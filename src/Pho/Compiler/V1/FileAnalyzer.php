@@ -16,7 +16,7 @@ use Pho\Compiler\Prototypes\PrototypeInterface;
 
 class FileAnalyzer extends AbstractAnalyzer   {
 
-    public static function process(/*string*/ $file, ?PrototypeInterface $prototype = null): void
+    public static function process(/*string*/ $file, PrototypeInterface $prototypes): void
     {
         try {
             $ast = new Parser\Parse($file);
@@ -25,7 +25,7 @@ class FileAnalyzer extends AbstractAnalyzer   {
         }
         $entities = $ast->entities();
         foreach($entities as $entity) {
-            EntityAnalyzer::process($entity);
+            EntityAnalyzer::process($entity, $prototypes);
         }
     }
 

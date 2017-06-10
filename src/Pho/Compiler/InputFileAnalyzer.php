@@ -11,6 +11,8 @@
 
 namespace Pho\Compiler;
 
+use Pho\Compiler\Prototypes\PrototypeList;
+
 class InputFileAnalyzer {
 
     protected $file;
@@ -49,7 +51,7 @@ class InputFileAnalyzer {
         return $engine;
     }
 
-    public function process(): void
+    public function process(PrototypeList $prototypes): void
     {
        try {
             $file_analyzer = "\\".__NAMESPACE__."\\".$this->getProcessor()."\\FileAnalyzer";
@@ -57,7 +59,7 @@ class InputFileAnalyzer {
         catch(Exceptions\InvalidGraphQLTypeException $e) {
             throw $e;
         }
-        $file_analyzer::process($this->file);
+        $file_analyzer::process($this->file, $prototypes);
     }
 
 }

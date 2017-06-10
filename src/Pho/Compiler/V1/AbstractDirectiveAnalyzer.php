@@ -13,13 +13,11 @@ namespace Pho\Compiler\V1;
 
 use Pho\Compiler\Prototypes\PrototypeInterface;
 use Pho\Lib\GraphQL\Parser\Definitions\Directive;
-use Pho\Compiler\Exceptions\PrototypeRequiredException;
 
 abstract class AbstractDirectiveAnalyzer extends AbstractAnalyzer {
 
-    public static function process(/*array*/ $directives, ?PrototypeInterface $prototype): void
+    public static function process(/*array*/ $directives, PrototypeInterface $prototype): void
     {
-        if(is_null($prototype)) throw new PrototypeRequiredException(__CLASS__);
         array_walk($directives, function(Directive $directive) use ($prototype) {
             self::unitProcess($prototype, $directive);
         }); 

@@ -19,7 +19,7 @@ use Pho\Compiler\Exceptions;
 class EntityAnalyzer extends AbstractAnalyzer {
 
 
-    public static function process(/*Definitions\Entity*/ $entity, ?PrototypeInterface $prototype = null): void 
+    public static function process(/*Definitions\Entity*/ $entity, PrototypeInterface $prototypes): void 
     {
         $interface = $entity->implementation(0);
         try {
@@ -41,6 +41,7 @@ class EntityAnalyzer extends AbstractAnalyzer {
             );
         }
         FieldAnalyzer::process($entity->fields(), $prototype);
+        $prototypes->add($prototype);
     }
 
     protected static function formPrototype(string $type): PrototypeInterface

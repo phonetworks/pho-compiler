@@ -15,6 +15,7 @@ class SimpleTest extends \PHPUnit\Framework\TestCase {
 
     public function test00JustANode() {
         $compiler = new Compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."00JustANode.graphql");
+        $compiler->dump();
     }
 
 }

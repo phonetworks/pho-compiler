@@ -12,6 +12,7 @@
 namespace Pho\Compiler;
 
 use Pho\Lib\GraphQL\Parser\Parse;
+use Pho\Compiler\Prototypes\PrototypeList;
 
 /**
  * Pho Compiler
@@ -28,6 +29,7 @@ class Compile {
 
     protected $analyzer;
     protected $file_version = -1;
+    protected $prototypes;
 
     /**
      * Starts the compilaton process by analyzing given
@@ -37,9 +39,10 @@ class Compile {
      */
     public function __construct(string $input_file)
     {
+        $this->prototypes = new PrototypeList;
         $this->analyzer = new InputFileAnalyzer($input_file);
         if($this->checkSupport()) {
-            $this->analyzer->process();
+            $this->analyzer->process($this->prototypes);
         }
 
         /*
@@ -82,9 +85,10 @@ class Compile {
 
     }
 
+*/
     public function dump(): void
     {
-
+        print_r($this->prototypes);
     }
-*/
+
 }
