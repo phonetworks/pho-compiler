@@ -22,3 +22,6 @@ A Pho-compatible GraphQL schema (also called a **"PhoGQL"** file) is advised to 
 ### Types
 * A PhoGQL definition must implement one of ActorNode, GraphNode, ObjectNode or ReadEdge, SubscribeEdge, TransmitEdge, WriteEdge entities. For more information on these entities, check out [pho-framework](http://github.com/phonetworks/pho-framework).
 * While GraphQL allows multiple inheritance, the Pho compiler will evaluate only the first interface declared in each definition.
+
+### Directives
+* Directives are case-insensitive. Similarly arguments are case-insensitive too.

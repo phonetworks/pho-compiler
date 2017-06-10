@@ -22,15 +22,15 @@ abstract class AbstractArgumentAnalyzer extends AbstractAnalyzer {
     public static function process(/*array*/ $arguments, PrototypeInterface $prototype): void
     {
         array_walk($arguments, function(Argument $arg) use ($prototype) {
-            self::unitProcess($prototype, $arg);
+            self::unitProcess($arg, $prototype);
         }); 
     }
 
     protected static function unitProcess(Argument $arg, PrototypeInterface $prototype): void
     {
         $arg_name = strtolower($arg->name());
-        if(in_array($arg_name, self::$argument_properties)) {
-            $func = self::$prototype_functions[$arg_name];
+        if(in_array($arg_name, static::$argument_properties)) {
+            $func = static::$prototype_functions[$arg_name];
             $prototype->$func($arg->value());
         }
     }

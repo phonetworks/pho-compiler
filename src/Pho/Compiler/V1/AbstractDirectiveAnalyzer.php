@@ -18,14 +18,15 @@ abstract class AbstractDirectiveAnalyzer extends AbstractAnalyzer {
 
     public static function process(/*array*/ $directives, PrototypeInterface $prototype): void
     {
+        //print_r($directives);
         array_walk($directives, function(Directive $directive) use ($prototype) {
-            self::unitProcess($prototype, $directive);
+            self::unitProcess($directive, $prototype);
         }); 
     }
 
     protected static function _getEntityType(): string
     {
-        $ref = new \ReflectionObject($this);
+        $ref = new \ReflectionClass(get_called_class());
         return str_replace("DirectiveAnalyzer", "", $ref->getShortName());
     }
 
@@ -39,6 +40,7 @@ abstract class AbstractDirectiveAnalyzer extends AbstractAnalyzer {
                 $res[] = strtolower($matches[1]);
             }
         }
+        return $res;
     }
 
     protected static function unitProcess(Directive $directive, PrototypeInterface $prototype): void
@@ -46,8 +48,8 @@ abstract class AbstractDirectiveAnalyzer extends AbstractAnalyzer {
         $entity_type = self::_getEntityType();
         $directive_name = strtolower($directive->name());
         if(in_array($directive_name, self::_getDirectiveArguments($entity_type))) {
-            $class = sprintf("%s%sArgumentAnalyzer", $entity_type, ucfirst($directive_name));
-            $class::process($prototype, $directive->arguments());
+            $class = sprintf("%s\\%s%sArgumentAnalyzer", __NAMESPACE__, $entity_type, ucfirst($directive_name));
+            $class::process($directive->arguments(), $prototype);
         }
     }
 

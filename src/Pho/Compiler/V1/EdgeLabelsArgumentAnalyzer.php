@@ -13,12 +13,12 @@ namespace Pho\Compiler\V1;
 
 class EdgeLabelsArgumentAnalyzer extends AbstractArgumentAnalyzer {
 
-    protected static $argument_properties = ["headSingular", "tailSingular", "headPlural", "tailPlural"];
+    protected static $argument_properties = ["headsingular", "tailsingular", "headplural", "tailplural"];
     protected static $prototype_functions = [
-        "headSingular"=>"setLabelHeadSingular", 
-        "tailSingular"=>"setLabelTailSingular",
-        "headPlural"=>"setLabelHeadPlural", 
-        "tailPlural"=>"setLabelTailPlural",
+        "headsingular"=>"setLabelHeadSingular", 
+        "tailsingular"=>"setLabelTailSingular",
+        "headplural"=>"setLabelHeadPlural", 
+        "tailplural"=>"setLabelTailPlural",
     ];
 
 }

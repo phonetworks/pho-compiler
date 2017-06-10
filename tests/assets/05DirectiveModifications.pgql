@@ -1,0 +1,8 @@
+# pho-graphql-v1
+
+type DoWeirdo implements WriteEdge 
+@Nodes(head:"Actor", tail:"Object")
+@PROPERTIES(BindiNG: true)
+{
+    id: ID
+}

@@ -30,6 +30,7 @@ class EntityAnalyzer extends AbstractAnalyzer {
         }
         $prototype = self::formPrototype($type);
         $prototype->setName($entity->name());
+        $prototype->setSubtype(self::getEntitySubtype($interface->name()));
         $directive_analyzer = __NAMESPACE__."\\".$type."DirectiveAnalyzer";
         if(class_exists($directive_analyzer)) {
             $directive_analyzer::process($entity->directives(), $prototype);
@@ -56,6 +57,11 @@ class EntityAnalyzer extends AbstractAnalyzer {
                 $type
             );
         }
+    }
+
+    protected static function getEntitySubtype(string $interface): string
+    {
+        return strtolower(substr($interface, 0, -4));
     }
 
     protected static function getEntityType(string $interface): string

@@ -14,4 +14,9 @@ final class PrototypeList implements PrototypeInterface {
         $this->list[] = $prototype;
     }
 
+    public function toArray(): array
+    {
+        return $this->list;
+    }
+
 }

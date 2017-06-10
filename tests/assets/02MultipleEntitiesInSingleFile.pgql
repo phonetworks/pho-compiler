@@ -3,3 +3,7 @@
 type ExtendedObject implements ObjectNode {
     id: ID
 }
+
+type ExtendedEdge implements Edge {
+    id: ID
+}

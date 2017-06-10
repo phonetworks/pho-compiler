@@ -1,5 +1,0 @@
-# pho-graphql-v1
-
-type ExtendedEdge implements Edge {
-
-}

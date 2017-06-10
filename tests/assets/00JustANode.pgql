@@ -1,9 +1,6 @@
 # pho-graphql-v1
 
 type ExtendedObject implements ObjectNode {
-
-}
-
-type ExtendedEdge implements Edge {
-
+    id: ID,
+    custom_field: String
 }

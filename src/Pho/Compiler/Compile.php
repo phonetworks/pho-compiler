@@ -85,10 +85,19 @@ class Compile {
 
     }
 
-*/
     public function dump(): void
     {
-        print_r($this->prototypes);
+    }
+
+*/
+    public function ast(): array
+    {
+        $ast = array();
+        $prototypes = $this->prototypes->toArray();
+        foreach($prototypes as $prototype) {
+            $ast[] = $prototype->toArray();
+        }
+        return $ast;
     }
 
 }

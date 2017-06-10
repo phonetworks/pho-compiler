@@ -1,0 +1,5 @@
+# pho-graphql-v1
+
+type ExtendedEdge implements SubscribeEdge {
+    id: ID!
+}
