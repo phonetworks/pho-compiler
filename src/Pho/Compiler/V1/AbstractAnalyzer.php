@@ -16,6 +16,6 @@ abstract class AbstractAnalyzer implements AnalyzerInterface {
     /**
      * Version number.
      */
-    const V = 1;
+    const VERSION = 1;
 
 }

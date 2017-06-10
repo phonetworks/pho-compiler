@@ -13,6 +13,6 @@ namespace Pho\Compiler\Prototypes;
 
 interface PrototypeInterface {
 
-    public function setName(string $name): void;
+    // public function setName(string $name): void;
 
 }

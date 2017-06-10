@@ -17,7 +17,7 @@ use Pho\Compiler\Exceptions\PrototypeRequiredException;
 
 abstract class AbstractDirectiveAnalyzer extends AbstractAnalyzer {
 
-    public static function process(array $directives, ?PrototypeInterface $prototype): void
+    public static function process(/*array*/ $directives, ?PrototypeInterface $prototype): void
     {
         if(is_null($prototype)) throw new PrototypeRequiredException(__CLASS__);
         array_walk($directives, function(Directive $directive) use ($prototype) {

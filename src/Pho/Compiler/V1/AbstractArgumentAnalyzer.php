@@ -19,7 +19,7 @@ abstract class AbstractArgumentAnalyzer extends AbstractAnalyzer {
     protected static $argument_properties;
     protected static $prototype_functions;
 
-    public static function process(array $arguments, ?PrototypeInterface $prototype): void
+    public static function process(/*array*/ $arguments, ?PrototypeInterface $prototype): void
     {
         if(is_null($prototype)) throw new PrototypeRequiredException(__CLASS__);
         array_walk($arguments, function(Argument $arg) use ($prototype) {

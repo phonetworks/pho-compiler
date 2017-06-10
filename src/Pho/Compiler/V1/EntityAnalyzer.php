@@ -14,6 +14,7 @@ namespace Pho\Compiler\V1;
 use Pho\Lib\GraphQL\Parser\Definitions;
 use Pho\Compiler\Prototypes;
 use Pho\Compiler\Prototypes\PrototypeInterface;
+use Pho\Compiler\Exceptions;
 
 class EntityAnalyzer extends AbstractAnalyzer {
 
@@ -22,14 +23,14 @@ class EntityAnalyzer extends AbstractAnalyzer {
     {
         $interface = $entity->implementation(0);
         try {
-            $type = self::getEntityType($interface);
+            $type = self::getEntityType($interface->name());
         }
         catch(Exceptions\InvalidImplementationException $e) {
             throw $e;
         }
         $prototype = self::formPrototype($type);
         $prototype->setName($entity->name());
-        $directive_analyzer = $type."DirectiveAnalyzer";
+        $directive_analyzer = __NAMESPACE__."\\".$type."DirectiveAnalyzer";
         if(class_exists($directive_analyzer)) {
             $directive_analyzer::process($entity->directives(), $prototype);
         }
@@ -44,7 +45,7 @@ class EntityAnalyzer extends AbstractAnalyzer {
 
     protected static function formPrototype(string $type): PrototypeInterface
     {
-        $class = "Prototypes\\".$type;
+        $class = "\\Pho\\Compiler\\Prototypes\\".$type;
         if(class_exists($class)) {
             return new $class();
         }

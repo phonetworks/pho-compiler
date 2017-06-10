@@ -18,7 +18,7 @@ class Entity implements PrototypeInterface {
 
     public function __call(string $method, array $args) //: mixed
     {
-        if(strlen($method)>3 && subst($method, 0, 3)=="set") {
+        if(strlen($method)>3 && substr($method, 0, 3)=="set") {
             $this->setter(
                 substr($method, 3), 
                 $args[0]
@@ -29,7 +29,7 @@ class Entity implements PrototypeInterface {
 
     protected function setter(string $property, /* mixed */ $value): void
     {
-        $property = s($property)->underscored();
+        $property = \Stringy\StaticStringy::underscored($property);
         if($property=="fields") {
             throw new \Exception(sprintf("setFields is not a valid method in the class %s", get_class($this)));
         }
