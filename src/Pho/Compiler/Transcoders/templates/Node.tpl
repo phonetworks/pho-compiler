@@ -7,15 +7,19 @@
  * For more information, visit http://phonetworks.org
  ******************************************************/
 
-class {{class_name}} extends {{extends}} {
+class {{ class_name }} extends {{ extends }} {
 
-
+    {{# traits }}
+    use {{ . }}
+    {{/ traits }}
     
+
+
 }
 
 /*****************************************************
- * Timestamp: {{compilation_timestamp}}
- * Size (in bytes): {{bytes}}
- * Compilation Time: {{compiltion_time}}
- * {{hash}}
+ * Timestamp: {{ compilation_timestamp }}
+ * Size (in bytes): {{ size_in_bytes }}
+ * Compilation Time: {{ compilation_time }}
+ * {{ hash }}
  ******************************************************/
