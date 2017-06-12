@@ -35,6 +35,19 @@ class NodeTranscoder implements TranscoderInterface {
     
     public function transcode(): string
     {
-        $vars = $this->prototype->toArray();
+        $vars = $this->mapPrototypeVars($this->prototype->toArray());
+    }
+
+    protected function mapPrototypeVars(array $prototype_vars): array
+    {
+        $new_array = [];
+        foreach($prototype_vars as $key=>$val) {
+            if($key=="name")
+                $new_array["class_name"] = $val;
+            if($key=="subtype")
+                $new_array["extends"] = ucfirst($val);
+            
+
+        }
     }
 }
