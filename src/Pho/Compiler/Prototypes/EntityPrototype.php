@@ -17,11 +17,13 @@ class EntityPrototype implements PrototypeInterface {
     protected $subtype; // actor, object, graph or transmit, subscribe, write, read etc.
     protected $fields = [];
     protected $type;
-    protected $ref;
+    protected $_ref;
+
+    const INACCESSIBLE_VARS = ["_ref"];
 
     public function __construct() {
-        $this->ref = new \ReflectionObject($this);
-        $this->type = substr(strtolower($this->ref->getShortName()),0 , -1 * strlen("prototype")); // trimming prototype from class name
+        $this->_ref = new \ReflectionObject($this);
+        $this->type = substr(strtolower($this->_ref->getShortName()),0 , -1 * strlen("prototype")); // trimming prototype from class name
     }
 
     public function __call(string $method, array $args) //: mixed
@@ -35,17 +37,22 @@ class EntityPrototype implements PrototypeInterface {
         // else log?
     }
 
+    public function __get(string $property) //: mixed
+    {
+        if(isset($this->$property) && !in_array($property, self::INACCESSIBLE_VARS))
+            return $this->$property;
+    }
+
     protected function setter(string $property, /* mixed */ $value): void
     {
         //echo "starting: ".$property."\n";
         $original_property = $property;
         $property = \Stringy\StaticStringy::underscored($property);
-        if($property=="fields"||$property=="type"||$property=="ref") {
+        if($property=="fields"||$property=="type"||$property=="_ref") {
             throw new \Exception(sprintf("set%s is not a valid method in the class %s", $original_property, get_class($this)));
         }
-        $ref = new \ReflectionObject($this);
         try {
-            $ref->getProperty($property);
+            $this->_ref->getProperty($property);
         }
         catch(\ReflectionException $r) {
             //echo "Unknown property: ".$property;
@@ -68,11 +75,11 @@ class EntityPrototype implements PrototypeInterface {
 
     public function toArray(): array 
     {
-        $props = $this->ref->getProperties(\ReflectionProperty::IS_PROTECTED);
+        $props = $this->_ref->getProperties(\ReflectionProperty::IS_PROTECTED);
         $res = [];
         array_walk($props, function($prop) use (&$res) {
             $key = $prop->getName();
-            if($key=="ref")
+            if(in_array($key, self::INACCESSIBLE_VARS))
                 return;
             $res[$key] = $this->$key;
         });
