@@ -20,5 +20,6 @@ class NodePrototype extends EntityPrototype {
     protected $expires;
     protected $volatile;
     protected $revisionable;
-
+    protected $editable;
+    
 }

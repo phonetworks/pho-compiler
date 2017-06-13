@@ -14,6 +14,7 @@ namespace Pho\Compiler\Prototypes;
 class EdgePrototype extends EntityPrototype {
 
     protected $binding;
+    protected $volatile;
     
     protected $head_nodes;
     protected $tail_nodes;

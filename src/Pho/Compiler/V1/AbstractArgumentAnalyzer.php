@@ -29,10 +29,9 @@ abstract class AbstractArgumentAnalyzer extends AbstractAnalyzer {
     protected static function unitProcess(Argument $arg, PrototypeInterface $prototype): void
     {
         $arg_name = strtolower($arg->name());
-        if(in_array($arg_name, static::$argument_properties)) {
+        if(array_key_exists($arg_name, static::$prototype_functions)) {
             $func = static::$prototype_functions[$arg_name];
             $prototype->$func($arg->value());
         }
     }
-
 }

@@ -14,9 +14,9 @@ namespace Pho\Compiler\Prototypes;
 class EntityPrototype implements PrototypeInterface {
 
     protected $name;
+    protected $type; // "type" determines whether it's  node or edge in the first place.
     protected $subtype; // actor, object, graph or transmit, subscribe, write, read etc.
-    protected $fields = [];
-    protected $type;
+    protected $fields = []; 
     protected $_ref;
 
     const INACCESSIBLE_VARS = ["_ref"];
@@ -47,7 +47,7 @@ class EntityPrototype implements PrototypeInterface {
     {
         //echo "starting: ".$property."\n";
         $original_property = $property;
-        $property = \Stringy\StaticStringy::underscored($property);
+        $property = \Stringy\StaticStringy::underscored($property); // takes care of strtolower
         if($property=="fields"||$property=="type"||$property=="_ref") {
             throw new \Exception(sprintf("set%s is not a valid method in the class %s", $original_property, get_class($this)));
         }

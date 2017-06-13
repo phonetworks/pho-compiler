@@ -81,6 +81,7 @@ class SimpleTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals(600, $ast[0]["expires"]);
         $this->assertEquals(true, $ast[0]["volatile"]);
         $this->assertEquals(false, $ast[0]["revisionable"]);
+        $this->assertEquals(true, $ast[0]["editable"]);
         $this->assertEquals("Actor:Read,Actor:Write,Actor:Subscribe", $ast[0]["incoming_edges"]);
         $this->assertEquals("", $ast[0]["outgoing_edges"]);
         //print_r($ast);

@@ -1,5 +1,9 @@
 <?php
 
+use Pho\Framework;
+use Pho\Kernel\Kernel;
+use Pho\Kernel\Traits;
+
 {{pretext}}
 
 /*****************************************************
@@ -13,7 +17,16 @@ class {{ class_name }} extends {{ extends }} {
     use {{ . }}
     {{/ traits }}
     
+    const DEFAULT_MOD = {{ mod }};
+    const DEFAULT_MASK = {{ mask }};
 
+    const EDGES_IN = [{{  incoming_edges }}];
+
+    public function __construct(Kernel $kernel, Framework\Actor $actor, Framework\ContextInterface $context)
+    {
+        parent::__construct($actor, $context);
+        $this->loadNodeTrait($kernel);
+    }
 
 }
 
