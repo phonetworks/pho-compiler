@@ -13,6 +13,7 @@ namespace Pho\Compiler;
 
 use Pho\Lib\GraphQL\Parser\Parse;
 use Pho\Compiler\Prototypes\PrototypeList;
+use Pho\Compiler\Transcoders\TranscoderFactory;
 
 /**
  * Pho Compiler
@@ -80,15 +81,6 @@ class Compile {
         }
     }
 
-    public function get(): string
-    {
-
-    }
-
-    public function dump(): void
-    {
-    }
-
 */
     public function ast(): array
     {
@@ -98,6 +90,21 @@ class Compile {
             $ast[] = $prototype->toArray();
         }
         return $ast;
+    }
+
+    public function get(): string
+    {
+        $transcoder = null;
+        $prototypes = $this->prototypes->toArray();
+        foreach($prototypes as $prototype) {
+            $transcoder = TranscoderFactory::transcode($prototype);
+        }
+        return $transcoder->run();
+    }
+
+    public function dump(): void
+    {
+        echo $this->get();
     }
 
 }

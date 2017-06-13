@@ -44,15 +44,18 @@ class NodeTranscoder implements TranscoderInterface {
         $this->tpl = $mustache->loadTemplate("Node");
     }  
     
-    public function transcode(): string
+    public function run(): string
     {
         $vars = $this->mapPrototypeVars($this->prototype->toArray());
+        return $this->tpl->render($vars);
     }
 
     protected function mapPrototypeVars(array $prototype_vars): array
     {
         $new_array = [];
         $may_be_persistent = true;
+        $is_volatile = false;
+        $is_editable = false;
 
         foreach($prototype_vars as $key=>$val) {
             // "type" determines whether it's  node or edge in the first place.
@@ -69,6 +72,7 @@ class NodeTranscoder implements TranscoderInterface {
                     if(!$val) break;
                     $new_array["traits"][] = self::TRAIT_VOLATILE_NODE;
                     $may_be_persistent = false;
+                    $is_volatile = true;
                     break;
                 case "editable":
                     if(!$val) break;
@@ -78,6 +82,7 @@ class NodeTranscoder implements TranscoderInterface {
                             : self::TRAIT_EDITABLE_NODE
                     ; 
                     $may_be_persistent = false;
+                    $is_editable = true;
                     break;
                 // revisionable?
                 // expires?
@@ -93,5 +98,9 @@ class NodeTranscoder implements TranscoderInterface {
                         : self::TRAIT_PERSISTENT_NODE
             ;
         }
+        if($is_volatile&&$is_editable) {
+            // Log ...
+        }
+        return $new_array;
     }
 }

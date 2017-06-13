@@ -40,7 +40,7 @@ class EdgeTranscoder implements TranscoderInterface {
         $this->tpl = $mustache->loadTemplate("Edge");
     }  
     
-    public function transcode(): string
+    public function run(): string
     {
         $vars = $this->mapPrototypeVars($this->prototype->toArray());
     }

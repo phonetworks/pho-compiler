@@ -11,7 +11,7 @@
 
 namespace Pho\Compiler;
 
-class SimpleTest extends \PHPUnit\Framework\TestCase {
+class AnalysisTest extends \PHPUnit\Framework\TestCase {
 
     public function test00JustANode() {
         $compiler = new Compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."00JustANode.pgql");
