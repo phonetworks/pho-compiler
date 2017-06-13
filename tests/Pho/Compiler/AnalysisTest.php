@@ -11,11 +11,10 @@
 
 namespace Pho\Compiler;
 
-class AnalysisTest extends \PHPUnit\Framework\TestCase {
+class AnalysisTest extends TestCase {
 
     public function test00JustANode() {
-        $compiler = new Compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."00JustANode.pgql");
-        $ast = $compiler->ast();
+        $ast = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."00JustANode.pgql")->ast();
         $this->assertEquals("ExtendedObject", $ast[0]["name"]);
         $this->assertEquals("object", $ast[0]["subtype"]);
         $this->assertEquals("node", $ast[0]["type"]);
@@ -33,8 +32,7 @@ class AnalysisTest extends \PHPUnit\Framework\TestCase {
     }
 
     public function test01JustAnEdge() {
-        $compiler = new Compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."01JustAnEdge.pgql");
-        $ast = $compiler->ast();
+        $ast = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."01JustAnEdge.pgql")->ast();
         $this->assertEquals("ExtendedEdge", $ast[0]["name"]);
         $this->assertEquals("subscribe", $ast[0]["subtype"]);
         $this->assertEquals("edge", $ast[0]["type"]);
@@ -66,15 +64,13 @@ class AnalysisTest extends \PHPUnit\Framework\TestCase {
     }
 
     public function test02MultipleEntitiesInSingleFile() {
-        $compiler = new Compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."02MultipleEntitiesInSingleFile.pgql");
-        $ast = $compiler->ast();
+        $ast = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."02MultipleEntitiesInSingleFile.pgql")->ast();
         $this->assertEquals("ExtendedObject", $ast[0]["name"]);
         $this->assertEquals("ExtendedEdge", $ast[1]["name"]);
     }
 
     public function test03NodeWithDirectives() {
-        $compiler = new Compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."03NodeWithDirectives.pgql");
-        $ast = $compiler->ast();
+        $ast = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."03NodeWithDirectives.pgql")->ast();
         $this->assertEquals("BlogPost", $ast[0]["name"]);
         $this->assertEquals("0x1e754", $ast[0]["mod"]);
         $this->assertEquals("0xeeeea", $ast[0]["mask"]);
@@ -88,8 +84,7 @@ class AnalysisTest extends \PHPUnit\Framework\TestCase {
     }
 
     public function test04EdgeWithDirectives() {
-        $compiler = new Compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."04EdgeWithDirectives.pgql");
-        $ast = $compiler->ast();
+        $ast = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."04EdgeWithDirectives.pgql")->ast();
         $this->assertEquals("Do", $ast[0]["name"]);
         $this->assertEquals(true, $ast[0]["binding"]);
         $this->assertEquals("Actor", $ast[0]["head_nodes"]);
@@ -102,8 +97,7 @@ class AnalysisTest extends \PHPUnit\Framework\TestCase {
     }
 
     public function test05DirectiveModifications() {
-        $compiler = new Compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."05DirectiveModifications.pgql");
-        $ast = $compiler->ast();
+        $ast = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."05DirectiveModifications.pgql")->ast();
         $this->assertEquals("DoWeirdo", $ast[0]["name"]);
         $this->assertEquals(true, $ast[0]["binding"]);
         $this->assertEquals("Actor", $ast[0]["head_nodes"]);

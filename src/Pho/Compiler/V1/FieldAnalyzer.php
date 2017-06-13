@@ -26,7 +26,9 @@ class FieldAnalyzer extends AbstractAnalyzer {
     protected static function unitProcess(Field $field, PrototypeInterface $prototype): void
     {
         $field_name = strtolower($field->name());
-        $prototype->addField($field->name(), $field->type(), (bool) $field->nullable(), (bool) $field->list(), (bool) $field->native());
+        //$constraints = FieldDirectiveAnalyzer::process($field->directives(), $prototype);
+        $constraints = [];
+        $prototype->addField($field_name, $field->type(), (bool) $field->nullable(), (bool) $field->list(), (bool) $field->native(), $constraints);
     }
 
 }

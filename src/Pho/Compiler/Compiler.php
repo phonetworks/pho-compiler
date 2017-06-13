@@ -14,6 +14,8 @@ namespace Pho\Compiler;
 use Pho\Lib\GraphQL\Parser\Parse;
 use Pho\Compiler\Prototypes\PrototypeList;
 use Pho\Compiler\Transcoders\TranscoderFactory;
+use Psr\Log\LoggerInterface;
+use kyeates\PSRLoggers\MockLogger;
 
 /**
  * Pho Compiler
@@ -26,7 +28,10 @@ use Pho\Compiler\Transcoders\TranscoderFactory;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class Compile {
+class Compiler {
+
+    protected static $logger;
+    protected static $timer;
 
     protected $analyzer;
     protected $file_version = -1;
@@ -38,21 +43,44 @@ class Compile {
      * 
      * @param string $input_file
      */
-    public function __construct(string $input_file)
+    public function __construct(?LoggerInterface $logger = null)
     {
+        self::$logger = $logger;
         $this->prototypes = new PrototypeList;
+    }
+
+    public static function logger(): LoggerInterface
+    {
+        if(isset($logger))
+            return self::$logger;
+        else {
+            return new MockLogger();
+        }
+    }
+
+    protected static function startTimer(): void
+    {
+        self::$timer = microtime(true);
+    }
+
+    /**
+     * Returns the compilation time in milliseconds
+     *
+     * @return string
+     */
+    public static function endTimer(): int
+    {
+        return (int) round( (microtime(true) - self::$timer) * 1000 );
+    }
+
+    public function compile(string $input_file): Compiler
+    {
+        self::startTimer();
         $this->analyzer = new InputFileAnalyzer($input_file);
         if($this->checkSupport()) {
             $this->analyzer->process($this->prototypes);
         }
-
-        /*
-        try {
-            InputFileAnalyzer::process($input_file);
-        }
-        catch(\Exception $e) {
-            throw $e;
-        }*/
+        return $this;
     }
 
     protected function version(): int

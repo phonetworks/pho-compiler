@@ -1,10 +1,19 @@
 <?php
 
+/*
+ * This file is part of the Pho package.
+ *
+ * (c) Emre Sokullu <emre@phonetworks.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Pho\Compiler\Transcoders;
 
-use Pho\Compiler\Prototypes\NodePrototype;
+use Pho\Compiler\Compiler;
 
-class NodeTranscoder implements TranscoderInterface {
+class NodeTranscoder extends AbstractTranscoder {
 
     const TRAIT_VOLATILE_NODE = "Traits\VolatileNodeTrait";
     const TRAIT_EDITABLE_GRAPH = "Traits\EditableGraphTrait";
@@ -17,41 +26,9 @@ class NodeTranscoder implements TranscoderInterface {
             "object" => "Framework\Object"
     ];
 
-    protected $prototype;
-    protected $tpl;
-
-    public function __construct(NodePrototype $prototype) {
-        $this->prototype = $prototype;
-        // https://github.com/bobthecow/mustache.php/wiki
-        $mustache = new \Mustache_Engine(array(
-            //'template_class_prefix' => '__MyTemplates_',
-            'cache' => dirname(__FILE__).'/tmp/cache/mustache',
-            //'cache_file_mode' => 0666, // Please, configure your umask instead of doing this :)
-            //'cache_lambda_templates' => true,
-            'loader' => new \Mustache_Loader_FilesystemLoader(dirname(__FILE__).DIRECTORY_SEPARATOR.'templates')
-            //'partials_loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/views/partials'),
-            //'helpers' => array('i18n' => function($text) {
-                // do something translatey here...
-            //}),
-            /*'escape' => function($value) {
-                return htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
-            },
-            'charset' => 'ISO-8859-1',
-            'logger' => new Mustache_Logger_StreamLogger('php://stderr'),
-            'strict_callables' => true,
-            'pragmas' => [Mustache_Engine::PRAGMA_FILTERS],*/
-        ));
-        $this->tpl = $mustache->loadTemplate("Node");
-    }  
-    
-    public function run(): string
+    protected function mapPrototypeVars(): array
     {
-        $vars = $this->mapPrototypeVars($this->prototype->toArray());
-        return $this->tpl->render($vars);
-    }
-
-    protected function mapPrototypeVars(array $prototype_vars): array
-    {
+        $prototype_vars = $this->prototype->toArray();
         $new_array = [];
         $may_be_persistent = true;
         $is_volatile = false;
@@ -99,8 +76,9 @@ class NodeTranscoder implements TranscoderInterface {
             ;
         }
         if($is_volatile&&$is_editable) {
-            // Log ...
+            Compiler::logger()->warning("A node can't be both volatile and editable at the same time.");
         }
+
         return $new_array;
     }
 }

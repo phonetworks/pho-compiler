@@ -45,7 +45,6 @@ class EntityPrototype implements PrototypeInterface {
 
     protected function setter(string $property, /* mixed */ $value): void
     {
-        //echo "starting: ".$property."\n";
         $original_property = $property;
         $property = \Stringy\StaticStringy::underscored($property); // takes care of strtolower
         if($property=="fields"||$property=="type"||$property=="_ref") {
@@ -55,21 +54,20 @@ class EntityPrototype implements PrototypeInterface {
             $this->_ref->getProperty($property);
         }
         catch(\ReflectionException $r) {
-            //echo "Unknown property: ".$property;
             return; // maybe log this incident (with warning) in the future.
         }
-        //echo "here i am: ".$property."\n\n";
         $this->$property = $value;
     }
 
-    public function addField(string $name, string $type, bool $is_nullable, bool $is_list, bool $is_native): void
+    public function addField(string $name, string $type, bool $is_nullable, bool $is_list, bool $is_native, array $constraints): void
     {
         $this->fields[] = [
             "name"=>$name,
             "type"=>$type,
             "nullable"=>$is_nullable,
             "list"=>$is_list,
-            "native"=>$is_native
+            "native"=>$is_native,
+            "constraints" => $constraints
         ];
     }
 
