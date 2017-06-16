@@ -24,7 +24,7 @@ class TranscoderFactory {
             return new NodeTranscoder($prototype);
         }
         else if($prototype instanceof EdgePrototype) {  
-            return new NodeTranscoder($prototype);
+            return new EdgeTranscoder($prototype);
         }
         throw new UnknownPrototypeException();
     }

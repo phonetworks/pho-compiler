@@ -12,11 +12,11 @@
 namespace Pho\Compiler\Transcoders;
 
 use Pho\Compiler\Compiler;
-use Pho\Compiler\Prototypes\NodePrototype;
+use Pho\Compiler\Prototypes\PrototypeInterface;
 
 abstract class AbstractTranscoder implements TranscoderInterface
 {
-    public function __construct(NodePrototype $prototype) {
+    public function __construct(PrototypeInterface $prototype) {
         $this->prototype = $prototype;
         $mustache = new \Mustache_Engine(array(
             'loader' => new \Mustache_Loader_FilesystemLoader(dirname(__FILE__).DIRECTORY_SEPARATOR.'templates'),

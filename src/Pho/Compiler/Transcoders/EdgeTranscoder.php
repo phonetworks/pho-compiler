@@ -22,13 +22,10 @@ class EdgeTranscoder extends AbstractTranscoder {
             "publish" => "Framework\ObjectOut\Publish"
     ];
 
-    public function __construct(NodePrototype $prototype) {
-        parent::__construct($prototype);
-        $this->tpl = $mustache->loadTemplate("Node");
-    }
 
-    protected function mapPrototypeVars(array $prototype_vars): array
+    protected function mapPrototypeVars(): array
     {
+        $prototype_vars = $this->prototype->toArray();
         $new_array = [];
         $may_be_persistent = true;
 
@@ -53,9 +50,13 @@ class EdgeTranscoder extends AbstractTranscoder {
                         $new_array[$key] = '"'.$val.'"';
                     break;*/
                 
-                // head_nodes should be ok
+                // head_nodes should be ok, because they override parent
                 // tail_nodes ??
+                default:
+                    $new_array[$key] = $val;
+                    break;
             }
         }
+        return $new_array;
     }
 }

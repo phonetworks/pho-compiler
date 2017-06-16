@@ -13,36 +13,17 @@ namespace Pho\Compiler;
 
 class TemplateTest extends TestCase {
 
-    public function test00JustANode() {
+    public function test03NodeWithDirectives() {
         $file = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."03NodeWithDirectives.pgql")->get();
         //eval(\Psy\sh());
         //print_r($ast);
     }
 
-    public function test01JustAnEdge() {
-        //$compiler = new Compiler(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."01JustAnEdge.pgql");
-
+    public function test04EdgeWithDirectives() {
+        $file = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."04EdgeWithDirectives.pgql")->get();
+        eval(\Psy\sh());
         //print_r($ast);
     }
 
-    public function test02MultipleEntitiesInSingleFile() {
-        //$compiler = new Compiler(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."02MultipleEntitiesInSingleFile.pgql");
-
-    }
-
-    public function test03NodeWithDirectives() {
-        //$compiler = new Compiler(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."03NodeWithDirectives.pgql");
-
-    }
-
-    public function test04EdgeWithDirectives() {
-        //$compiler = new Compiler(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."04EdgeWithDirectives.pgql");
-
-    }
-
-    public function test05DirectiveModifications() {
-        //$compiler = new Compiler(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."05DirectiveModifications.pgql");
-
-    }
 
 }

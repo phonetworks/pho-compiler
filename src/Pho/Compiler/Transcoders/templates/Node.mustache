@@ -20,10 +20,9 @@ class {{ class_name }} extends {{ extends }} {
     const DEFAULT_MOD = {{ mod }};
     const DEFAULT_MASK = {{ mask }};
 
-    const EDGES_IN = [{{  incoming_edges }}];
-
     public function __construct(Kernel $kernel, Framework\Actor $actor, Framework\ContextInterface $context)
     {
+        $this->registerIncomingEdges({{  incoming_edges }});
         parent::__construct($actor, $context);
         $this->loadNodeTrait($kernel);
     }
