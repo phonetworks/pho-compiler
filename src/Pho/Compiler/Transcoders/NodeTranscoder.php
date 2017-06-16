@@ -66,6 +66,19 @@ class NodeTranscoder extends AbstractTranscoder {
 
                 // incoming_edges, no touch
                 // outgoing_edges, no use.
+                case "incoming_edges":
+                    //$new_array["incoming_edges"] =
+                        switch($prototype_vars["subtype"]) {
+                            case "actor":
+                                $new_array["incoming_edges"] = "ActorOut\Read::class, ActorOut\Subscribe::class, ObjectOut\Transmit::class, ".$val;
+                                break;
+                            case "graph":
+                                $new_array["incoming_edges"] = "ActorOut\Read::class, ActorOut\Subscribe::class, ObjectOut\Transmit::class, ".$val;
+                                break;
+                            case "object":
+                                $new_array["incoming_edges"] = "ActorOut\Read::class, ActorOut\Subscribe::class, ObjectOut\Transmit::class, ".$val;
+                                break;
+                        }
             }
         }
         if($may_be_persistent) {
