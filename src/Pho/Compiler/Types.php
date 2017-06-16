@@ -1,9 +1,21 @@
 <?php
 
+/*
+ * This file is part of the Pho package.
+ *
+ * (c) Emre Sokullu <emre@phonetworks.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Pho\Compiler;
 
 /**
- * A static class regarding schema types
+ * A static class (struct) that keeps track of 
+ * schema versions and types.
+ * 
+ * @author Emre Sokullu <emre@phonetworks.org>
  */
 class Types
 {
