@@ -14,12 +14,12 @@ namespace Pho\Compiler\Transcoders;
 use Pho\Compiler\Compiler;
 
 class EdgeTranscoder extends AbstractTranscoder {
-    
+
     const SUBTYPES = [
             "read" => "Framework\ActorOut\Read",
             "write" => "Framework\ActorOut\Write",
             "subscribe" => "Framework\ActorOut\Subscribe",
-            "publish" => "Framework\ActorOut\Publish"
+            "publish" => "Framework\ObjectOut\Publish"
     ];
 
     public function __construct(NodePrototype $prototype) {
