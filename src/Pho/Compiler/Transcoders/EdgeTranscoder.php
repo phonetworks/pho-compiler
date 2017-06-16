@@ -41,8 +41,10 @@ class EdgeTranscoder extends AbstractTranscoder {
                 case "subtype":
                     $new_array["extends"] = self::SUBTYPES[$val];
                     break;
-                
-                // binding ? predicate!!!
+                case "binding":
+                    $new_array["is_binding"] = $val ? "true" : "false";
+                    break;
+                    
                 // volatile should be OK.
 
 
