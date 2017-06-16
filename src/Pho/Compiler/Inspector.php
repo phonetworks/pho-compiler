@@ -35,7 +35,7 @@ class Inspector
      * 
      * @throws Exceptions\MissingObjectImparityException if there is no object node found.
      * @throws Exceptions\MissingActorImparityException if there is no actor node found.
-     * @throws Exceptions\NoEdgeDirImparityException if the node does not have a directory for its edges.
+     * @throws Exceptions\AbsentEdgeDirImparityException if the node does not have a directory for its edges.
      */
     public static function assertParity(string $folder): void
     {
@@ -55,7 +55,7 @@ class Inspector
                         try {
                             self::checkEdgeDir($folder, $class_name);
                         }
-                        catch(Exceptions\NoEdgeDirImparityException $e) {
+                        catch(Exceptions\AbsentEdgeDirImparityException $e) {
                             throw $e;
                         }
                         break;
@@ -64,7 +64,7 @@ class Inspector
                         try {
                             self::checkEdgeDir($folder, $class_name);
                         }
-                        catch(Exceptions\NoEdgeDirImparityException $e) {
+                        catch(Exceptions\AbsentEdgeDirImparityException $e) {
                             throw $e;
                         }
                         break;
@@ -72,7 +72,7 @@ class Inspector
                         try {
                             self::checkEdgeDir($folder, $class_name);
                         }
-                        catch(Exceptions\NoEdgeDirImparityException $e) {
+                        catch(Exceptions\AbsentEdgeDirImparityException $e) {
                             throw $e;
                         }
                         break;
@@ -99,13 +99,13 @@ class Inspector
      * 
      * @return void
      * 
-     * @throws Exceptions\NoEdgeDirImparityException if the node does not have a directory for its edges.
+     * @throws Exceptions\AbsentEdgeDirImparityException if the node does not have a directory for its edges.
      */
     protected static function checkEdgeDir(string $folder, string $node_name): void
     {
         $dirname = $folder.DIRECTORY_SEPARATOR.$node_name."Out";
         if(!file_exists($dirname)) {
-            throw new Exceptions\NoEdgeDirImparityException($dirname, $node_name);
+            throw new Exceptions\AbsentEdgeDirImparityException($dirname, $node_name);
         }
     }
 

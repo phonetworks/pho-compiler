@@ -16,7 +16,7 @@ namespace Pho\Compiler\Exceptions;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class NoEdgeDirImparityException extends AbstractCorrupParityException
+class AbsentEdgeDirImparityException extends AbstractCorrupParityException
 {
     /**
      * Constructor.
