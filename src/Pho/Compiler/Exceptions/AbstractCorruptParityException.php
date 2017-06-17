@@ -17,7 +17,7 @@ namespace Pho\Compiler\Exceptions;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-abstract class AbstractCorrupParityException extends \Exception
+abstract class AbstractCorruptParityException extends \Exception
 {
 
 }

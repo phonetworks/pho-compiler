@@ -108,6 +108,7 @@ class Compiler {
         $output = $this->get();
         $this->logger()->info(sprintf("%d node(s)", $output["node"])); 
         $this->logger()->info(sprintf("%d edge(s)", $output["edge"])); 
+        //eval(\Psy\sh());
         foreach($output["node"] as $node) {
             $file_name = $output_dir.DIRECTORY_SEPARATOR.$node["name"].".php";
             $edges_dir = $output_dir.DIRECTORY_SEPARATOR.$node["name"]."Out";
