@@ -1,0 +1,19 @@
+# pho-graphql-v1
+
+type BlogPost implements ObjectNode 
+@edges(in:"Actor:Read,Actor:Write,Actor:Subscribe", out:"Do")
+@permissions(mod: "0x1e754", mask: "0xeeeea")
+@properties(expires: 600, editable: true, volatile: true, revisionable: false)
+{
+    id: ID,
+    custom_field: String
+}
+
+type Do implements WriteEdge 
+@nodes(head:"Actor", tail:"BlogPost,X")
+@properties(binding: true)
+@labels(headSingular:"done", headPlural: "dones", tailSingular: "doer", tailPlural: "doers")
+{
+    id: ID,
+    custom_field: String
+}

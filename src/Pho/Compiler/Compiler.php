@@ -51,7 +51,7 @@ class Compiler {
 
     public static function logger(): LoggerInterface
     {
-        if(isset($logger))
+        if(isset(self::$logger))
             return self::$logger;
         else {
             return new MockLogger();
@@ -96,20 +96,51 @@ class Compiler {
         return in_array($this->version(), Types::SUPPORTED);
     }
 
-/*
-    public function save(string $output_file_or_dir): bool
+    public function save(string $output_dir): void
     {
+        $this->logger()->info("Saving begins"); 
         if(!file_exists($output_dir)) {
             mkdir($output_dir);
         }
         if(!is_writeable($output_dir)) {
-            if(chmod($output_dir, $TO_COME)) {
+            throw new Exceptions\DestinationNotWriteableException($output_dir);
+        }
+        $output = $this->get();
+        $this->logger()->info(sprintf("%d node(s)", $output["node"])); 
+        $this->logger()->info(sprintf("%d edge(s)", $output["edge"])); 
+        foreach($output["node"] as $node) {
+            $file_name = $output_dir.DIRECTORY_SEPARATOR.$node["name"].".php";
+            $edges_dir = $output_dir.DIRECTORY_SEPARATOR.$node["name"]."Out";
+            file_put_contents($file_name, $node["file"]);
+            if(!is_array($node["out"]))
+                continue;
+            foreach($node["out"] as $out) {
+                mkdir($edges_dir);
+                touch($edges_dir.DIRECTORY_SEPARATOR.$out.".php");
+            }
+        }
 
+        foreach($output["edge"] as $edge) {
+            if(!is_array($edge["tails"]))
+                continue;
+            foreach($edge["tails"] as $tail) {
+                $node_file = $output_dir.DIRECTORY_SEPARATOR.$tail.".php";
+                $edges_dir = $output_dir.DIRECTORY_SEPARATOR.$tail."Out";
+                if(!file_exists($node_file)) { 
+                    throw new Exceptions\NodeEdgeMismatchImparityException($node_file);
+                }
+                if(!file_exists($edges_dir)) { 
+                    throw new Exceptions\NodeEdgeMismatchImparityException($edges_dir);
+                }
+                $edge_file = $edges_dir.DIRECTORY_SEPARATOR.$edge["name"].".php";
+                if(!file_exists($edge_file)) {
+                   throw new Exceptions\NodeEdgeMismatchImparityException($edge_file);
+                }
+                file_put_contents($edge_file, $edge["file"]);
             }
         }
     }
 
-*/
     public function ast(): array
     {
         $ast = array();
@@ -120,19 +151,53 @@ class Compiler {
         return $ast;
     }
 
-    public function get(): string
+    protected function getNode(Prototypes\PrototypeInterface $prototype): array
     {
-        $transcoder = null;
-        $prototypes = $this->prototypes->toArray();
-        foreach($prototypes as $prototype) {
-            $transcoder = TranscoderFactory::transcode($prototype);
-        }
-        return $transcoder->run();
+        $transcoder = TranscoderFactory::transcode($prototype);
+        return [
+                "name" => $prototype->name,
+                "file" => $transcoder->run(),
+                "out" => $transcoder->toArray()["outgoing_edges"],
+                "_in" => $prototype->incoming_edges
+
+        ];
     }
 
-    public function dump(): void
+    protected function getEdge(Prototypes\PrototypeInterface $prototype): array
     {
-        echo $this->get();
+        $transcoder = TranscoderFactory::transcode($prototype);
+        return [
+                "name" => $prototype->name,
+                "file" => $transcoder->run(),
+                "tails" => $transcoder->toArray()["tail_nodes"],
+                "_heads" => $prototype->head_nodes
+        ];
+    }
+
+    public function get(): array
+    {
+        $tree = ["node"=>[], "edge"=>[]];
+        $prototypes = $this->prototypes->toArray();
+        foreach($prototypes as $prototype) {
+            $func = sprintf("get%s", ucfirst($prototype->type));
+            $tree[$prototype->type][] = $this->$func($prototype);
+        }
+        return $tree;
+    }
+
+    public function dump(): string
+    {
+        $output = "";
+        $prototypes = $this->prototypes->toArray();
+        foreach($prototypes as $prototype) {
+            $output .= 
+                (TranscoderFactory::transcode($prototype))->run();
+        }
+        return $output;
+    }
+
+    public function _prototypes() {
+        return $this->prototypes;
     }
 
 }

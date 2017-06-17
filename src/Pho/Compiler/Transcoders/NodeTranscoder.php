@@ -66,6 +66,9 @@ class NodeTranscoder extends AbstractTranscoder {
 
                 // incoming_edges, no touch
                 // outgoing_edges, no use.
+                case "outgoing_edges":
+                    $new_array[$key] = array_map("trim", explode(",", $val));
+                    break;
                 default:
                     $new_array[$key] = $val;
                     break;

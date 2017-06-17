@@ -11,6 +11,7 @@
 
 namespace Pho\Compiler\V1;
 
+use Pho\Compiler\Compiler;
 use Pho\Lib\GraphQL\Parser;
 use Pho\Compiler\Prototypes\PrototypeInterface;
 
@@ -23,8 +24,10 @@ class FileAnalyzer extends AbstractAnalyzer   {
         } catch(\Exception $e) {
             throw $e;
         }
-        $entities = $ast->entities();
+        $entities = iterator_to_array($ast->entities());
+        Compiler::logger()->info(sprintf("%d entities found.", sizeof($entities)));
         foreach($entities as $entity) {
+            Compiler::logger()->info(sprintf("Entity name: %s.", $entity->name()));
             EntityAnalyzer::process($entity, $prototypes);
         }
     }

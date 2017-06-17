@@ -16,6 +16,9 @@ use Pho\Compiler\Prototypes\PrototypeInterface;
 
 abstract class AbstractTranscoder implements TranscoderInterface
 {
+
+    protected $new_array;
+
     public function __construct(PrototypeInterface $prototype) {
         $this->prototype = $prototype;
         $mustache = new \Mustache_Engine(array(
@@ -33,7 +36,8 @@ abstract class AbstractTranscoder implements TranscoderInterface
 
     public function run(): string
     {
-        $compiled = $this->tpl->render($this->generateVars());
+        $this->generateVars();
+        $compiled = $this->tpl->render($this->toArray());
         $compiled = str_replace(
             [ "-|-SIZE_IN_BYTES-|-", "-|-HASH-|-" ],
             [ strlen($compiled), md5($compiled) ],
@@ -42,11 +46,15 @@ abstract class AbstractTranscoder implements TranscoderInterface
         return $compiled;
     }
 
-    protected function generateVars(): array
+    protected function generateVars(): void
     {
-        $new_array = $this->mapPrototypeVars();
-        $new_array["timestamp"] = (string) time();
-        $new_array["compilation_time"] = (string) Compiler::endTimer();
-        return $new_array;
+        $this->new_array = $this->mapPrototypeVars();
+        $this->new_array["timestamp"] = (string) time();
+        $this->new_array["compilation_time"] = (string) Compiler::endTimer();
+    }
+
+    public function toArray(): array
+    {
+        return $this->new_array;
     }
 }

@@ -11,12 +11,14 @@
 
 namespace Pho\Compiler;
 
+use kyeates\PSRLoggers\EchoLogger;
+
 class TestCase extends \PHPUnit\Framework\TestCase {
 
     protected $compiler;
 
     public function setUp() {
-        $this->compiler = new Compiler();
+        $this->compiler = new Compiler(new EchoLogger());
     }
 
     public function tearDown() {

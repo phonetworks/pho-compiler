@@ -14,14 +14,14 @@ namespace Pho\Compiler;
 class TemplateTest extends TestCase {
 
     public function test03NodeWithDirectives() {
-        $file = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."03NodeWithDirectives.pgql")->get();
-        //eval(\Psy\sh());
+        //$file = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."03NodeWithDirectives.pgql")->dump();
+        eval(\Psy\sh());
         //print_r($ast);
     }
 
     public function test04EdgeWithDirectives() {
-        $file = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."04EdgeWithDirectives.pgql")->get();
-        eval(\Psy\sh());
+        $file = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."04EdgeWithDirectives.pgql")->dump();
+        //eval(\Psy\sh());
         //print_r($ast);
     }
 

@@ -41,6 +41,10 @@ class EdgeTranscoder extends AbstractTranscoder {
                 case "binding":
                     $new_array["is_binding"] = $val ? "true" : "false";
                     break;
+                case "tail_nodes":
+                    $new_array[$key] = array_map("trim", explode(",", $val));
+                    break;
+
                     
                 // volatile should be OK.
 

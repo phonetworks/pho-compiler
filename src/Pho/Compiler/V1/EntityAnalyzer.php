@@ -15,6 +15,7 @@ use Pho\Lib\GraphQL\Parser\Definitions;
 use Pho\Compiler\Prototypes;
 use Pho\Compiler\Prototypes\PrototypeInterface;
 use Pho\Compiler\Exceptions;
+use Pho\Compiler\Compiler;
 
 class EntityAnalyzer extends AbstractAnalyzer {
 
@@ -42,6 +43,7 @@ class EntityAnalyzer extends AbstractAnalyzer {
             );
         }
         FieldAnalyzer::process($entity->fields(), $prototype);
+        Compiler::logger()->info(sprintf("Adding a new prototype '%s' to the list with %d values.", $entity->name(), count($prototypes->toArray())));
         $prototypes->add($prototype);
     }
 
