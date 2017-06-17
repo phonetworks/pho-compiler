@@ -18,7 +18,6 @@ class TemplateTest extends TestCase {
 
     public function setUp() {
         parent::setUp();
-        $this->tmp_file = tempnam(sys_get_temp_dir(),"");
         $tmp_dir = tempnam(sys_get_temp_dir(),"");
         unlink($tmp_dir);
         mkdir($tmp_dir);
@@ -40,21 +39,20 @@ class TemplateTest extends TestCase {
         parent::tearDown();
         self::_delTree($this->tmp_dir);
         unset($this->tmp_dir);
-        unlink($this->tmp_file);
-        unset($this->tmp_file);
     }
 
-    public function test03NodeWithDirectives() {
-        //$file = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."03NodeWithDirectives.pgql")->dump();
-        /*$this->assertRegExp('/^.+classBlogPostextendsFramework\Object{useTraits\VolatileNodeTraituseTraits\EditableNodeTraitconstDEFAULT_MOD=0x1e754;constDEFAULT_MASK=0xeeeea;pu
-blicfunction__construct(Kernel$kernel,Framework\Actor$actor,Framework\ContextInterface$context){$this->registerIncomingEdges(Actor:Read,Actor:Write,Actor:Subscribe);parent::__construct($actor,$context);
-$this->loadNodeTrait($kernel);}}.+$/', str_replace([" ","\n","\r"],"", $file));
-   */ }
-
-    public function test04EdgeWithDirectives() {
-        //$file = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."04EdgeWithDirectives.pgql")->dump();
-        //eval(\Psy\sh());
-        //print_r($ast);
+    public function test03NodeWithDirectives_WithFirst600Chars() {
+        $magic_num = 600;
+        $compiled = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."03NodeWithDirectives.pgql");
+        $contents = substr($compiled->dump(),0,$magic_num);
+        $compiled->save($this->tmp_dir);
+        $file = $this->tmp_dir.DIRECTORY_SEPARATOR."BlogPost.php";
+        $file_obj = new \SplFileObject($file, "r+");
+        $file_obj->ftruncate($magic_num);
+        $file_obj->fflush();
+        $this->assertFileExists($file);
+        $this->assertEquals($contents, file_get_contents($file));
+        
     }
 
     public function test_CannotSave_04EdgeWithDirectives() {

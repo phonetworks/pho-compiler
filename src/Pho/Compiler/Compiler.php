@@ -102,7 +102,7 @@ class Compiler {
         if(!file_exists($output_dir)) {
             mkdir($output_dir);
         }
-        if(!is_writeable($output_dir)) {
+        if(!is_writeable($output_dir) || !is_dir($output_dir)) {
             throw new Exceptions\DestinationNotWriteableException($output_dir);
         }
         $output = $this->get();

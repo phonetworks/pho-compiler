@@ -1,0 +1,10 @@
+# pho-graphql-v1
+
+type Status implements ObjectNode 
+@edges(in:"", out:"Post, Reply, Repost")
+@permissions(mod: "0x1e754", mask: "0xeeeea")
+@properties(expires: 0, editable: false, volatile: false, revisionable: false)
+{
+    id: ID,
+    status: String @constraints(...)
+}
