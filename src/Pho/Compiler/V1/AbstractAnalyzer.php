@@ -11,7 +11,8 @@
 
 namespace Pho\Compiler\V1;
 
-abstract class AbstractAnalyzer implements AnalyzerInterface {
+abstract class AbstractAnalyzer implements AnalyzerInterface
+{
 
     /**
      * Version number.

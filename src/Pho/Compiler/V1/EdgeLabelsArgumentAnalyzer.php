@@ -11,7 +11,8 @@
 
 namespace Pho\Compiler\V1;
 
-class EdgeLabelsArgumentAnalyzer extends AbstractArgumentAnalyzer {
+class EdgeLabelsArgumentAnalyzer extends AbstractArgumentAnalyzer
+{
 
     protected static $prototype_functions = [
         "headsingular"=>"setLabelHeadSingular", 

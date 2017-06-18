@@ -2,7 +2,8 @@
 
 namespace Pho\Compiler\Prototypes;
 
-final class PrototypeList implements PrototypeInterface {
+final class PrototypeList implements PrototypeInterface
+{
 
     private $list = [];
 

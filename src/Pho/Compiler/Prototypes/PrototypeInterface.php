@@ -11,7 +11,8 @@
 
 namespace Pho\Compiler\Prototypes;
 
-interface PrototypeInterface {
+interface PrototypeInterface
+{
 
     public function toArray(): array;
 

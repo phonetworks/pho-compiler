@@ -11,7 +11,8 @@
 
 namespace Pho\Compiler\V1;
 
-class EdgePropertiesArgumentAnalyzer extends AbstractArgumentAnalyzer {
+class EdgePropertiesArgumentAnalyzer extends AbstractArgumentAnalyzer
+{
 
     protected static $prototype_functions = [
         "binding"=>"setBinding",

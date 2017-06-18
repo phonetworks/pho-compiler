@@ -11,7 +11,8 @@
 
 namespace Pho\Compiler\V1;
 
-class NodePermissionsArgumentAnalyzer extends AbstractArgumentAnalyzer {
+class NodePermissionsArgumentAnalyzer extends AbstractArgumentAnalyzer
+{
 
     protected static $prototype_functions = [
         "mod"=>"setMod", 

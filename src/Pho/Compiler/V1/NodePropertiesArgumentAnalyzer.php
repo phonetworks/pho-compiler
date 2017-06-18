@@ -11,7 +11,8 @@
 
 namespace Pho\Compiler\V1;
 
-class NodePropertiesArgumentAnalyzer extends AbstractArgumentAnalyzer {
+class NodePropertiesArgumentAnalyzer extends AbstractArgumentAnalyzer
+{
 
     protected static $prototype_functions = [
         "expires"=>"setExpires", 

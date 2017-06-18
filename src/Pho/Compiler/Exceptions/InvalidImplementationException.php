@@ -21,7 +21,9 @@ class InvalidImplementationException extends \Exception
     public function __construct(int $version, string $interface)
     {
         parent::__construct();
-        $this->message = sprintf("The interface \"%s\" is not recognized in Pho Compiler v%s", 
-                                $interface, (string) $version);
+        $this->message = sprintf(
+            "The interface \"%s\" is not recognized in Pho Compiler v%s", 
+            $interface, (string) $version
+        );
     }
 }

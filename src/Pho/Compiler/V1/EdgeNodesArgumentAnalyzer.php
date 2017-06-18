@@ -11,7 +11,8 @@
 
 namespace Pho\Compiler\V1;
 
-class EdgeNodesArgumentAnalyzer extends AbstractArgumentAnalyzer {
+class EdgeNodesArgumentAnalyzer extends AbstractArgumentAnalyzer
+{
 
     protected static $prototype_functions = [
         "head"=>"setHeadNodes", 

@@ -19,12 +19,15 @@ abstract class AbstractTranscoder implements TranscoderInterface
 
     protected $new_array;
 
-    public function __construct(PrototypeInterface $prototype) {
+    public function __construct(PrototypeInterface $prototype) 
+    {
         $this->prototype = $prototype;
-        $mustache = new \Mustache_Engine(array(
+        $mustache = new \Mustache_Engine(
+            array(
             'loader' => new \Mustache_Loader_FilesystemLoader(dirname(__FILE__).DIRECTORY_SEPARATOR.'templates'),
             'logger' => Compiler::logger(),
-        ));
+            )
+        );
         $this->tpl = $mustache->loadTemplate($this->getTemplateName());
     }  
     

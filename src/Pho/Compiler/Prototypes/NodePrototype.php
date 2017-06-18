@@ -11,7 +11,8 @@
 
 namespace Pho\Compiler\Prototypes;
 
-class NodePrototype extends EntityPrototype {
+class NodePrototype extends EntityPrototype
+{
 
     protected $incoming_edges;
     protected $outgoing_edges;

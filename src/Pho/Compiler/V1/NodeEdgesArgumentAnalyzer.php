@@ -11,7 +11,8 @@
 
 namespace Pho\Compiler\V1;
 
-class NodeEdgesArgumentAnalyzer extends AbstractArgumentAnalyzer {
+class NodeEdgesArgumentAnalyzer extends AbstractArgumentAnalyzer
+{
 
     protected static $prototype_functions = [
         "in"=>"setIncomingEdges", 

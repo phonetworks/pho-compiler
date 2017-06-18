@@ -16,7 +16,8 @@ use Pho\Compiler\Prototypes\NodePrototype;
 use Pho\Compiler\Prototypes\EdgePrototype;
 use Pho\Compiler\Exceptions\UnknownPrototypeException;
 
-class TranscoderFactory {
+class TranscoderFactory
+{
 
     public static function transcode(PrototypeInterface $prototype): TranscoderInterface
     {

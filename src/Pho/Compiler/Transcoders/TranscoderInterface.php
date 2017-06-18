@@ -11,7 +11,8 @@
 
 namespace Pho\Compiler\Transcoders;
 
-interface TranscoderInterface {
+interface TranscoderInterface
+{
 
     // __construct(PrototypeInterface $prototype) {}
     public function run(): string;

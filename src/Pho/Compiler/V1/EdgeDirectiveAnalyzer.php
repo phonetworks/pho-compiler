@@ -11,6 +11,7 @@
 
 namespace Pho\Compiler\V1;
 
-class EdgeDirectiveAnalyzer extends AbstractDirectiveAnalyzer {
+class EdgeDirectiveAnalyzer extends AbstractDirectiveAnalyzer
+{
 
 }

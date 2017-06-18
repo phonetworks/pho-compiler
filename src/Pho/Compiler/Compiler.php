@@ -28,7 +28,8 @@ use kyeates\PSRLoggers\MockLogger;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class Compiler {
+class Compiler
+{
 
     protected static $logger;
     protected static $timer;
@@ -51,9 +52,9 @@ class Compiler {
 
     public static function logger(): LoggerInterface
     {
-        if(isset(self::$logger))
+        if(isset(self::$logger)) {
             return self::$logger;
-        else {
+        } else {
             return new MockLogger();
         }
     }
@@ -70,7 +71,7 @@ class Compiler {
      */
     public static function endTimer(): int
     {
-        return (int) round( (microtime(true) - self::$timer) * 1000 );
+        return (int) round((microtime(true) - self::$timer) * 1000);
     }
 
     public function compile(string $input_file): Compiler
@@ -113,8 +114,9 @@ class Compiler {
             $file_name = $output_dir.DIRECTORY_SEPARATOR.$node["name"].".php";
             $edges_dir = $output_dir.DIRECTORY_SEPARATOR.$node["name"]."Out";
             file_put_contents($file_name, $node["file"]);
-            if(!is_array($node["out"]))
+            if(!is_array($node["out"])) {
                 continue;
+            }
             foreach($node["out"] as $out) {
                 mkdir($edges_dir);
                 touch($edges_dir.DIRECTORY_SEPARATOR.$out.".php");
@@ -122,8 +124,9 @@ class Compiler {
         }
 
         foreach($output["edge"] as $edge) {
-            if(!is_array($edge["tails"]))
+            if(!is_array($edge["tails"])) {
                 continue;
+            }
             foreach($edge["tails"] as $tail) {
                 $node_file = $output_dir.DIRECTORY_SEPARATOR.$tail.".php";
                 $edges_dir = $output_dir.DIRECTORY_SEPARATOR.$tail."Out";
@@ -135,7 +138,7 @@ class Compiler {
                 }
                 $edge_file = $edges_dir.DIRECTORY_SEPARATOR.$edge["name"].".php";
                 if(!file_exists($edge_file)) {
-                   throw new Exceptions\NodeEdgeMismatchImparityException($edge_file);
+                    throw new Exceptions\NodeEdgeMismatchImparityException($edge_file);
                 }
                 file_put_contents($edge_file, $edge["file"]);
             }
@@ -197,7 +200,8 @@ class Compiler {
         return $output;
     }
 
-    public function _prototypes() {
+    public function _prototypes() 
+    {
         return $this->prototypes;
     }
 

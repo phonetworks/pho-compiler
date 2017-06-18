@@ -11,6 +11,7 @@
 
 namespace Pho\Compiler\V1;
 
-class NodeDirectiveAnalyzer extends AbstractDirectiveAnalyzer  {
+class NodeDirectiveAnalyzer extends AbstractDirectiveAnalyzer
+{
 
 }

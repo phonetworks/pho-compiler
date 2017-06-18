@@ -24,7 +24,7 @@ use Zend\File\ClassFileLocator;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class Inspector 
+class Inspector
 {
     /**
      * Validates the compiled schema directory.
@@ -44,57 +44,59 @@ class Inspector
         $actor_exists = false;
         $locator = new ClassFileLocator($folder);
         foreach ($locator as $file) {
-            $filename = str_replace($folder . DIRECTORY_SEPARATOR , '' , $file->getRealPath());
+            $filename = str_replace($folder . DIRECTORY_SEPARATOR, '', $file->getRealPath());
             foreach ($file->getClasses() as $class) {
                 $reflector = new \ReflectionClass($class);
                 $parent = $reflector->getParentClass()->getName();
                 $class_name = $reflector->getShortName();
                 switch($parent) {
-                    case "Pho\Framework\Object":
-                        $object_exists = true;
-                        try {
-                            self::checkEdgeDir($folder, $class_name);
-                        }
-                        catch(Exceptions\AbsentEdgeDirImparityException $e) {
-                            throw $e;
-                        }
-                        break;
-                    case "Pho\Framework\Actor":
-                        $actor_exists = true;
-                        try {
-                            self::checkEdgeDir($folder, $class_name);
-                        }
-                        catch(Exceptions\AbsentEdgeDirImparityException $e) {
-                            throw $e;
-                        }
-                        break;
-                    case "Pho\Framework\Frame":
-                        try {
-                            self::checkEdgeDir($folder, $class_name);
-                        }
-                        catch(Exceptions\AbsentEdgeDirImparityException $e) {
-                            throw $e;
-                        }
-                        break;
-                    default:
-                        $ignored_classes[] = [
-                            "filename" => $filename, 
-                            "classname" => $class_name
-                        ];
-                        break;
+                case "Pho\Framework\Object":
+                    $object_exists = true;
+                    try {
+                        self::checkEdgeDir($folder, $class_name);
+                    }
+                    catch(Exceptions\AbsentEdgeDirImparityException $e) {
+                        throw $e;
+                    }
+                    break;
+                case "Pho\Framework\Actor":
+                    $actor_exists = true;
+                    try {
+                        self::checkEdgeDir($folder, $class_name);
+                    }
+                    catch(Exceptions\AbsentEdgeDirImparityException $e) {
+                        throw $e;
+                    }
+                    break;
+                case "Pho\Framework\Frame":
+                    try {
+                        self::checkEdgeDir($folder, $class_name);
+                    }
+                    catch(Exceptions\AbsentEdgeDirImparityException $e) {
+                        throw $e;
+                    }
+                    break;
+                default:
+                    $ignored_classes[] = [
+                    "filename" => $filename, 
+                    "classname" => $class_name
+                    ];
+                    break;
                 }
             }
         }
-        if(!$object_exists)
+        if(!$object_exists) {
             throw new Exceptions\MissingObjectImparityException($folder);
-        if(!$actor_exists)
+        }
+        if(!$actor_exists) {
             throw new Exceptions\MissingActorImparityException($folder);
+        }
     }  
 
     /**
      * Checks if the node has a directory for its edges.
      *
-     * @param string $folder The folder of compiled schema.
+     * @param string $folder    The folder of compiled schema.
      * @param string $node_name The name of the node.
      * 
      * @return void

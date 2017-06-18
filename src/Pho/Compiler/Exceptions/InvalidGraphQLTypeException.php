@@ -21,9 +21,11 @@ class InvalidGraphQLTypeException extends \Exception
     public function __construct(string $file)
     {
         parent::__construct();
-        $this->message = sprintf("No valid GraphQL schema type identified in the schema file: \"%s\". 
+        $this->message = sprintf(
+            "No valid GraphQL schema type identified in the schema file: \"%s\". 
                                     The file may be invalid/corrupt 
                                         or you may be running an older version of Pho-Compiler.", 
-                                $file);
+            $file
+        );
     }
 }

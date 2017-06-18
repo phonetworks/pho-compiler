@@ -14,7 +14,8 @@ namespace Pho\Compiler\V1;
 use Pho\Compiler\Prototypes\PrototypeInterface;
 
 // webmozart/assert
-class FieldDirectiveAnalyzer extends AbstractAnalyzer {
+class FieldDirectiveAnalyzer extends AbstractAnalyzer
+{
 
     protected static $constraints;
 

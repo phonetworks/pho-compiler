@@ -13,7 +13,8 @@ namespace Pho\Compiler\Transcoders;
 
 use Pho\Compiler\Compiler;
 
-class NodeTranscoder extends AbstractTranscoder {
+class NodeTranscoder extends AbstractTranscoder
+{
 
     const TRAIT_VOLATILE_NODE = "Traits\VolatileNodeTrait";
     const TRAIT_EDITABLE_GRAPH = "Traits\EditableGraphTrait";
@@ -37,41 +38,43 @@ class NodeTranscoder extends AbstractTranscoder {
         foreach($prototype_vars as $key=>$val) {
             // "type" determines whether it's  node or edge in the first place.
             switch($key) {
-                case "name":
-                    $new_array["class_name"] = $val;
-                    break;
-                case "subtype":
-                    $new_array["extends"] = self::SUBTYPES[$val];
-                    break;
+            case "name":
+                $new_array["class_name"] = $val;
+                break;
+            case "subtype":
+                $new_array["extends"] = self::SUBTYPES[$val];
+                break;
                 // mod: we don't touch 
                 // mask: we don't touch
-                case "volatile":
-                    if(!$val) break;
-                    $new_array["traits"][] = self::TRAIT_VOLATILE_NODE;
-                    $may_be_persistent = false;
-                    $is_volatile = true;
-                    break;
-                case "editable":
-                    if(!$val) break;
-                    $new_array["traits"][] = 
-                        ( $prototype_vars["subtype"] == "graph" ) 
-                            ? self::TRAIT_EDITABLE_GRAPH
-                            : self::TRAIT_EDITABLE_NODE
-                    ; 
-                    $may_be_persistent = false;
-                    $is_editable = true;
-                    break;
+            case "volatile":
+                if(!$val) { break;
+                }
+                $new_array["traits"][] = self::TRAIT_VOLATILE_NODE;
+                $may_be_persistent = false;
+                $is_volatile = true;
+                break;
+            case "editable":
+                if(!$val) { break;
+                }
+                $new_array["traits"][] = 
+                ( $prototype_vars["subtype"] == "graph" ) 
+                    ? self::TRAIT_EDITABLE_GRAPH
+                    : self::TRAIT_EDITABLE_NODE
+                ; 
+                $may_be_persistent = false;
+                $is_editable = true;
+                break;
                 // revisionable?
                 // expires?
 
                 // incoming_edges, no touch
                 // outgoing_edges, no use.
-                case "outgoing_edges":
-                    $new_array[$key] = array_map("trim", explode(",", $val));
-                    break;
-                default:
-                    $new_array[$key] = $val;
-                    break;
+            case "outgoing_edges":
+                $new_array[$key] = array_map("trim", explode(",", $val));
+                break;
+            default:
+                $new_array[$key] = $val;
+                break;
             }
         }
         if($may_be_persistent) {

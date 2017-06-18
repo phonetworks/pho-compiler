@@ -13,7 +13,8 @@ namespace Pho\Compiler\Transcoders;
 
 use Pho\Compiler\Compiler;
 
-class EdgeTranscoder extends AbstractTranscoder {
+class EdgeTranscoder extends AbstractTranscoder
+{
 
     const SUBTYPES = [
             "read" => "Framework\ActorOut\Read",
@@ -32,18 +33,18 @@ class EdgeTranscoder extends AbstractTranscoder {
         foreach($prototype_vars as $key=>$val) {
             // "type" determines whether it's  node or edge in the first place.
             switch($key) {
-                case "name":
-                    $new_array["class_name"] = $val;
-                    break;
-                case "subtype":
-                    $new_array["extends"] = self::SUBTYPES[$val];
-                    break;
-                case "binding":
-                    $new_array["is_binding"] = $val ? "true" : "false";
-                    break;
-                case "tail_nodes":
-                    $new_array[$key] = array_map("trim", explode(",", $val));
-                    break;
+            case "name":
+                $new_array["class_name"] = $val;
+                break;
+            case "subtype":
+                $new_array["extends"] = self::SUBTYPES[$val];
+                break;
+            case "binding":
+                $new_array["is_binding"] = $val ? "true" : "false";
+                break;
+            case "tail_nodes":
+                $new_array[$key] = array_map("trim", explode(",", $val));
+                break;
 
                     
                 // volatile should be OK.
@@ -56,9 +57,9 @@ class EdgeTranscoder extends AbstractTranscoder {
                 
                 // head_nodes should be ok, because they override parent
                 // tail_nodes ??
-                default:
-                    $new_array[$key] = $val;
-                    break;
+            default:
+                $new_array[$key] = $val;
+                break;
             }
         }
         return $new_array;

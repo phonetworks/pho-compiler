@@ -21,7 +21,9 @@ class DestinationNotWriteableException extends \Exception
     public function __construct(string $dir)
     {
         parent::__construct();
-        $this->message = sprintf("The destination %s is not writeable.", 
-                                $dir);
+        $this->message = sprintf(
+            "The destination %s is not writeable.", 
+            $dir
+        );
     }
 }

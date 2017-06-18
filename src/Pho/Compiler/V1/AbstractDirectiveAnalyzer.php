@@ -14,14 +14,17 @@ namespace Pho\Compiler\V1;
 use Pho\Compiler\Prototypes\PrototypeInterface;
 use Pho\Lib\GraphQL\Parser\Definitions\Directive;
 
-abstract class AbstractDirectiveAnalyzer extends AbstractAnalyzer {
+abstract class AbstractDirectiveAnalyzer extends AbstractAnalyzer
+{
 
     public static function process(/*array*/ $directives, PrototypeInterface $prototype): void
     {
         //print_r($directives);
-        array_walk($directives, function(Directive $directive) use ($prototype) {
-            self::unitProcess($directive, $prototype);
-        }); 
+        array_walk(
+            $directives, function (Directive $directive) use ($prototype) {
+                self::unitProcess($directive, $prototype);
+            }
+        ); 
     }
 
     protected static function _getEntityType(): string

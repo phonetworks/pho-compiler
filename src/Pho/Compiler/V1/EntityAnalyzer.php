@@ -17,7 +17,8 @@ use Pho\Compiler\Prototypes\PrototypeInterface;
 use Pho\Compiler\Exceptions;
 use Pho\Compiler\Compiler;
 
-class EntityAnalyzer extends AbstractAnalyzer {
+class EntityAnalyzer extends AbstractAnalyzer
+{
 
 
     public static function process(/*Definitions\Entity*/ $entity, PrototypeInterface $prototypes): void 
@@ -69,10 +70,11 @@ class EntityAnalyzer extends AbstractAnalyzer {
     protected static function getEntityType(string $interface): string
     {
         $type = substr($interface, -4);
-        if($type=="Edge"||$type=="Node")
+        if($type=="Edge"||$type=="Node") {
             return $type;
-        else
+        } else {
             throw new Exceptions\InvalidImplementationException($interface, $type);
+        }
     }
 
 }

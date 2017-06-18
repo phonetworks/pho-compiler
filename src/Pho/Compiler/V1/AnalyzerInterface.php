@@ -13,12 +13,13 @@ namespace Pho\Compiler\V1;
 
 use Pho\Compiler\Prototypes\PrototypeInterface;
 
-interface AnalyzerInterface {
+interface AnalyzerInterface
+{
 
     /**
      * Analyzes given input.
      * 
-     * @param mixed $input
+     * @param mixed                                                                   $input
      * @param ?PrototypeInterface The prototype object or null if it's not needed yet.
      */ 
     public static function process(/*mixed*/ $input, PrototypeInterface $prototype): void;

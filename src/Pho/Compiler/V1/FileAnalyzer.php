@@ -15,7 +15,8 @@ use Pho\Compiler\Compiler;
 use Pho\Lib\GraphQL\Parser;
 use Pho\Compiler\Prototypes\PrototypeInterface;
 
-class FileAnalyzer extends AbstractAnalyzer   {
+class FileAnalyzer extends AbstractAnalyzer
+{
 
     public static function process(/*string*/ $file, PrototypeInterface $prototypes): void
     {

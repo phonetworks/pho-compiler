@@ -14,13 +14,16 @@ namespace Pho\Compiler\V1;
 use Pho\Compiler\Prototypes\PrototypeInterface;
 use Pho\Lib\GraphQL\Parser\Definitions\Field;
 
-class FieldAnalyzer extends AbstractAnalyzer {
+class FieldAnalyzer extends AbstractAnalyzer
+{
 
     public static function process(/*array*/ $fields, PrototypeInterface $prototype): void
     {
-        array_walk($fields, function(Field $field) use ($prototype) {
-            self::unitProcess($field, $prototype);
-        }); 
+        array_walk(
+            $fields, function (Field $field) use ($prototype) {
+                self::unitProcess($field, $prototype);
+            }
+        ); 
     }
 
     protected static function unitProcess(Field $field, PrototypeInterface $prototype): void

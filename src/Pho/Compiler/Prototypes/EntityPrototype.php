@@ -11,7 +11,8 @@
 
 namespace Pho\Compiler\Prototypes;
 
-class EntityPrototype implements PrototypeInterface {
+class EntityPrototype implements PrototypeInterface
+{
 
     protected $name;
     protected $type; // "type" determines whether it's  node or edge in the first place.
@@ -21,9 +22,10 @@ class EntityPrototype implements PrototypeInterface {
 
     const INACCESSIBLE_VARS = ["_ref"];
 
-    public function __construct() {
+    public function __construct() 
+    {
         $this->_ref = new \ReflectionObject($this);
-        $this->type = substr(strtolower($this->_ref->getShortName()),0 , -1 * strlen("prototype")); // trimming prototype from class name
+        $this->type = substr(strtolower($this->_ref->getShortName()), 0, -1 * strlen("prototype")); // trimming prototype from class name
     }
 
     public function __call(string $method, array $args) //: mixed
@@ -39,8 +41,9 @@ class EntityPrototype implements PrototypeInterface {
 
     public function __get(string $property) //: mixed
     {
-        if(isset($this->$property) && !in_array($property, self::INACCESSIBLE_VARS))
+        if(isset($this->$property) && !in_array($property, self::INACCESSIBLE_VARS)) {
             return $this->$property;
+        }
     }
 
     protected function setter(string $property, /* mixed */ $value): void
@@ -75,12 +78,15 @@ class EntityPrototype implements PrototypeInterface {
     {
         $props = $this->_ref->getProperties(\ReflectionProperty::IS_PROTECTED);
         $res = [];
-        array_walk($props, function($prop) use (&$res) {
-            $key = $prop->getName();
-            if(in_array($key, self::INACCESSIBLE_VARS))
-                return;
-            $res[$key] = $this->$key;
-        });
+        array_walk(
+            $props, function ($prop) use (&$res) {
+                $key = $prop->getName();
+                if(in_array($key, self::INACCESSIBLE_VARS)) {
+                    return;
+                }
+                $res[$key] = $this->$key;
+            }
+        );
         return $res;
     }
 
