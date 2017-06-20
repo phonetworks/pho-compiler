@@ -1,6 +1,6 @@
 # pho-graphql-v1
 
-type Like implements TransmitEdge 
+type Like implements SubscribeEdge 
 @nodes(head:"User", tail:"Status")
 @properties(binding: false)
 @labels(headSingular:"like", headPlural: "likes", tailSingular: "liker", tailPlural: "likers")
