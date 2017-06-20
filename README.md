@@ -25,3 +25,8 @@ A Pho-compatible GraphQL schema (also called a **"PhoGQL"** file) is advised to 
 
 ### Directives
 * Directives are case-insensitive. Similarly arguments are case-insensitive too.
+
+## Tips
+1. Start by defining the Actor edge
+2. Outgoing edges are important.
+3. Make sure all outgoing edges are done.

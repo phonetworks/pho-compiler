@@ -1,0 +1,10 @@
+# pho-graphql-v1
+
+type Like implements TransmitEdge 
+@nodes(head:"User", tail:"Status")
+@properties(binding: false)
+@labels(headSingular:"like", headPlural: "likes", tailSingular: "liker", tailPlural: "likers")
+{
+    id: ID,
+    status: String @constraints(...)
+}
