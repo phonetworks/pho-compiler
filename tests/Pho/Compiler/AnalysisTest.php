@@ -105,4 +105,9 @@ class AnalysisTest extends TestCase {
         //print_r($ast);
     }
 
+    public function test10FieldsWithDirectives() {
+        $ast = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."10FieldsWithDirectives.pgql")->ast();
+        eval(\Psy\sh());
+    }
+
 }

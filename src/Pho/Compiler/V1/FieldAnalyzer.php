@@ -26,11 +26,36 @@ class FieldAnalyzer extends AbstractAnalyzer
         ); 
     }
 
+    protected static function _checkFieldDirectives(array $directives): array
+    {
+        $constraints = [
+            "minLength" => null, // string
+            "maxLength" => null, // string
+            "uuid" => null, // string
+            "regex" => null, // string
+            "greaterThan" => null, // int
+            "lessThan" => null, // int
+        ];
+
+        foreach($directives as $directive) {
+            if($directive->name()=="constraints") {
+                foreach($directive->arguments() as $arg) {
+                    if(array_key_exists($arg->name(), $constraints)) {
+                        $constraints[$arg->name()] = $arg->value();
+                    }
+                }     
+                break;
+            }
+        }
+
+        return $constraints;
+
+    }
+
     protected static function unitProcess(Field $field, PrototypeInterface $prototype): void
     {
         $field_name = strtolower($field->name());
-        //$constraints = FieldDirectiveAnalyzer::process($field->directives(), $prototype);
-        $constraints = [];
+        $constraints = self::_checkFieldDirectives($field->directives());
         $prototype->addField($field_name, $field->type(), (bool) $field->nullable(), (bool) $field->list(), (bool) $field->native(), $constraints);
     }
 
