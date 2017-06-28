@@ -21,5 +21,5 @@ class NodePrototype extends EntityPrototype
     protected $expires;
     protected $revisionable;
     protected $editable;
-    
+    protected $persistent;
 }

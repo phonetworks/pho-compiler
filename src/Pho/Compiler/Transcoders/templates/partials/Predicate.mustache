@@ -1,4 +1,16 @@
 class {{ class_name }}Predicate extends \Pho\Lib\Graph\Predicate 
 {
     protected $binding = {{ is_binding }};
+    {{# consumer }}
+    const T_CONSUMER = true;
+    {{/consumer}}
+    {{# notifier }}
+    const T_NOTIFIER = true;
+    {{/notifier}}
+    {{# subscriber }}
+    const T_SUBSCRIBER = true;
+    {{/subscriber}}
+    {{# persistent }}
+    const T_PERSISTENT = true;
+    {{/persistent}}
 }

@@ -75,7 +75,7 @@ class AnalysisTest extends TestCase {
         $this->assertEquals("0x1e754", $ast[0]["mod"]);
         $this->assertEquals("0xeeeea", $ast[0]["mask"]);
         $this->assertEquals(600, $ast[0]["expires"]);
-        $this->assertEquals(true, $ast[0]["volatile"]);
+        $this->assertEquals(false, $ast[0]["persistent"]);
         $this->assertEquals(false, $ast[0]["revisionable"]);
         $this->assertEquals(true, $ast[0]["editable"]);
         $this->assertEquals("Actor:Read,Actor:Write,Actor:Subscribe", $ast[0]["incoming_edges"]);
@@ -107,7 +107,10 @@ class AnalysisTest extends TestCase {
 
     public function test10FieldsWithDirectives() {
         $ast = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."10FieldsWithDirectives.pgql")->ast();
-        eval(\Psy\sh());
+        $this->assertArrayNotHasKey("ignoreme", $ast[0]["fields"][1]);
+        $this->assertEquals(255, $ast[1]["fields"][1]["constraints"]["maxLength"]);
+        $this->assertEquals(10, $ast[1]["fields"][2]["constraints"]["lessThan"]);
+        $this->assertEquals(4, $ast[1]["fields"][2]["constraints"]["greaterThan"]);
     }
 
 }
