@@ -2,9 +2,9 @@
 
 type Post implements WriteEdge 
 @nodes(head:"User", tail:"Status")
-@properties(binding: true)
+@properties(binding: true, persistent: true, consumer: true)
 @labels(headSingular:"post", headPlural: "posts", tailSingular: "author", tailPlural: "authors")
 {
     id: ID,
-    status: String @constraints(...)
+    status: String @constraints(maxLength: 140)
 }

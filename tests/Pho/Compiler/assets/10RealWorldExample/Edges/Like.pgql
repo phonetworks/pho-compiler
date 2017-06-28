@@ -2,7 +2,7 @@
 
 type Like implements SubscribeEdge 
 @nodes(head:"User", tail:"Status")
-@properties(binding: false)
+@properties(binding: false, persistent: true, consumer: true)
 @labels(headSingular:"like", headPlural: "likes", tailSingular: "liker", tailPlural: "likers")
 {
     id: ID,

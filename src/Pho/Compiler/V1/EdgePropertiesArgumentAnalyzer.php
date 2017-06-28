@@ -16,7 +16,11 @@ class EdgePropertiesArgumentAnalyzer extends AbstractArgumentAnalyzer
 
     protected static $prototype_functions = [
         "binding"=>"setBinding",
-        "volatile"=>"setVolatile"
+        "volatile"=>"setVolatile",
+        "persistent"=>"setPersistent",
+        "consumer"=>"setConsumer",
+        "notifier"=>"setNotifier",
+        "subscriber"=>"setSubscriber"
     ];
 
 }

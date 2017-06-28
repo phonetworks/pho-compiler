@@ -6,5 +6,5 @@ type Status implements ObjectNode
 @properties(expires: 0, editable: false, volatile: false, revisionable: false)
 {
     id: ID,
-    status: String @constraints(...)
+    status: String @constraints(maxLength: 140)
 }
