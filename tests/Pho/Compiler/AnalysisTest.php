@@ -88,7 +88,7 @@ class AnalysisTest extends TestCase {
         $this->assertEquals("Do", $ast[0]["name"]);
         $this->assertEquals(true, $ast[0]["binding"]);
         $this->assertEquals("Actor", $ast[0]["head_nodes"]);
-        $this->assertEquals("Object", $ast[0]["tail_nodes"]);
+        $this->assertEquals("Object", $ast[0]["tail_node"]);
         $this->assertEquals("done", $ast[0]["label_head_singular"]);
         $this->assertEquals("doer", $ast[0]["label_tail_singular"]);
         $this->assertEquals("dones", $ast[0]["label_head_plural"]);
@@ -101,7 +101,7 @@ class AnalysisTest extends TestCase {
         $this->assertEquals("DoWeirdo", $ast[0]["name"]);
         $this->assertEquals(true, $ast[0]["binding"]);
         $this->assertEquals("Actor", $ast[0]["head_nodes"]);
-        $this->assertEquals("Object", $ast[0]["tail_nodes"]);
+        $this->assertEquals("Object", $ast[0]["tail_node"]);
         //print_r($ast);
     }
 

@@ -6,5 +6,5 @@ type Follow implements SubscribeEdge
 @labels(headSingular:"follow", headPlural: "follows", tailSingular: "follower", tailPlural: "followers")
 {
     id: ID,
-    status: String @constraints(...)
+    status: String @constraints(maxLength:140)
 }

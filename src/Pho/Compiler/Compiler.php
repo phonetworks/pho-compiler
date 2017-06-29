@@ -109,7 +109,6 @@ class Compiler
         $output = $this->get();
         $this->logger()->info(sprintf("%d node(s)", $output["node"])); 
         $this->logger()->info(sprintf("%d edge(s)", $output["edge"])); 
-        //eval(\Psy\sh());
         foreach($output["node"] as $node) {
             $file_name = $output_dir.DIRECTORY_SEPARATOR.$node["name"].".php";
             $edges_dir = $output_dir.DIRECTORY_SEPARATOR.$node["name"]."Out";
@@ -118,16 +117,12 @@ class Compiler
                 continue;
             }
             foreach($node["out"] as $out) {
-                mkdir($edges_dir);
+                @mkdir($edges_dir);
                 touch($edges_dir.DIRECTORY_SEPARATOR.$out.".php");
             }
         }
-
         foreach($output["edge"] as $edge) {
-            if(!is_array($edge["tails"])) {
-                continue;
-            }
-            foreach($edge["tails"] as $tail) {
+                $tail = $edge["tail"];
                 $node_file = $output_dir.DIRECTORY_SEPARATOR.$tail.".php";
                 $edges_dir = $output_dir.DIRECTORY_SEPARATOR.$tail."Out";
                 if(!file_exists($node_file)) { 
@@ -141,7 +136,6 @@ class Compiler
                     throw new Exceptions\NodeEdgeMismatchImparityException($edge_file);
                 }
                 file_put_contents($edge_file, $edge["file"]);
-            }
         }
     }
 
@@ -173,7 +167,7 @@ class Compiler
         return [
                 "name" => $prototype->name,
                 "file" => $transcoder->run(),
-                "tails" => $transcoder->toArray()["tail_nodes"],
+                "tail" => $transcoder->toArray()["tail_node"],
                 "_heads" => $prototype->head_nodes
         ];
     }

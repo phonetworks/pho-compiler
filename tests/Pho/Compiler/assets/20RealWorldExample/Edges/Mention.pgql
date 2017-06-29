@@ -6,5 +6,5 @@ type Mention implements MentionEdge
 @labels(headSingular:"mention", headPlural: "mentions", tailSingular: "notification", tailPlural: "notifications")
 {
     id: ID,
-    status: String @constraints(...)
+    status: String @constraints(maxLength:140)
 }

@@ -21,7 +21,8 @@ class EdgePrototype extends EntityPrototype
     protected $subscriber;
     
     protected $head_nodes;
-    protected $tail_nodes;
+    protected $head_nodes_only;
+    protected $tail_node;
 
     protected $label_head_singular;
     protected $label_tail_singular;

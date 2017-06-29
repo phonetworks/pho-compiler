@@ -1,7 +1,7 @@
 # pho-graphql-v1
 
 type BlogPost implements ObjectNode 
-@edges(in:"Actor:Read,Actor:Write,Actor:Subscribe", out:"Do")
+@edges(in:"BlogPost:Do", out:"Do")
 @permissions(mod: "0x1e754", mask: "0xeeeea")
 @properties(expires: 600, editable: true, persistent: true, revisionable: false)
 {
@@ -11,13 +11,13 @@ type BlogPost implements ObjectNode
 
 type Do implements WriteEdge 
 @nodes(head:"Actor", tail:"BlogPost")
-@properties(binding: true)
+@properties(binding: true, volatile: true, consumer: true)
 @labels(headSingular:"done", headPlural: "dones", tailSingular: "doer", tailPlural: "doers")
 {
     id: ID,
     custom_field: String @constraints(maxLength: 255),
     another_field: String @constraints(lessThan: 10, greaterThan: 4),
-    field_3: [NonNative]
+    field_3: [ NonNative]
 }
 
 # maybe another one with errors?

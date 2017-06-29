@@ -16,7 +16,8 @@ class EdgeNodesArgumentAnalyzer extends AbstractArgumentAnalyzer
 
     protected static $prototype_functions = [
         "head"=>"setHeadNodes", 
-        "tail"=>"setTailNodes"
+        "head_exclusive"=>"setHeadNodesOnly", 
+        "tail"=>"setTailNode"
     ];
 
 }
