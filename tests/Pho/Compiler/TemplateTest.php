@@ -103,7 +103,7 @@ class TemplateTest extends TestCase {
              $this->compiler->compile($file);
         }
         $GLOBALS["emre"] = 1;
-       // eval(\Psy\sh());
+       eval(\Psy\sh());
     }
 
 
