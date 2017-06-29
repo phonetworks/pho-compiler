@@ -22,13 +22,8 @@ class {{ class_name }} extends {{ extends }} {
     const T_EXPIRATION =  {{ expiration }};
     const T_VERSIONABLE = false;
     
-    {{#mod}}
     const DEFAULT_MOD = {{ mod }};
-    {{/mod}}
-
-    {{#mask}}
     const DEFAULT_MASK = {{ mask }};
-    {{/mask}}
 
     protected function onIncomingEdgeRegistration(): void
     {
