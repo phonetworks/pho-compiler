@@ -19,7 +19,8 @@ class EdgePropertiesArgumentAnalyzer extends AbstractArgumentAnalyzer
         "persistent"=>"setPersistent",
         "consumer"=>"setConsumer",
         "notifier"=>"setNotifier",
-        "subscriber"=>"setSubscriber"
+        "subscriber"=>"setSubscriber",
+        "formative"=>"setFormative"
     ];
 
 }

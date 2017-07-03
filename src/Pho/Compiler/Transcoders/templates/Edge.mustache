@@ -29,6 +29,7 @@ class {{ class_name }} extends {{ extends }} {
     {{#head_nodes_only}}
     const SETTABLES = [{{ head_nodes_only }}];
     {{/head_nodes_only}}
+    
     {{^head_nodes_only}}
     const SETTABLES_EXTRA = [{{ head_nodes }}];
     {{/head_nodes_only}}

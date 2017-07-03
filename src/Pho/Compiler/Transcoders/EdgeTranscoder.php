@@ -100,6 +100,7 @@ class EdgeTranscoder extends AbstractTranscoder
         $check_for_must_have("tail_node");
 
         $check_with_fallback("is_binding", "false");
+        $check_with_fallback("formative", "false");
         $check_with_fallback("persistent", "true");
         $check_with_fallback("expiration", 0);
         $check_with_fallback("with_notification", false);

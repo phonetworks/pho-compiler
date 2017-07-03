@@ -19,6 +19,7 @@ class EdgePrototype extends EntityPrototype
     protected $consumer;
     protected $notifier;
     protected $subscriber;
+    protected $formative;
     
     protected $head_nodes;
     protected $head_nodes_only;
