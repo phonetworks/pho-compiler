@@ -97,6 +97,7 @@ class TemplateTest extends TestCase {
         $this->compiler->save($this->tmp_dir);
     }
 
+/*
     public function test20RealWorldExample() {
         $dir = __DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."20RealWorldExample";
         foreach($this->_dirToArray($dir) as $file) {
@@ -105,6 +106,6 @@ class TemplateTest extends TestCase {
         $GLOBALS["emre"] = 1;
        eval(\Psy\sh());
     }
-
+*/
 
 }
