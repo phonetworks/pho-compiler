@@ -29,9 +29,15 @@ class {{ class_name }} extends {{ extends }} {
     {{#head_nodes_only}}
     const SETTABLES = [{{ head_nodes_only }}];
     {{/head_nodes_only}}
-    
+
     {{^head_nodes_only}}
+    {{# formative }}
+    const FORMABLES = [{{ head_nodes }}];
+    {{/formative}}
+    {{^formative}}
     const SETTABLES_EXTRA = [{{ head_nodes }}];
+    {{/formative}}
+    
     {{/head_nodes_only}}
 
     public function __construct(NodeInterface $tail, NodeInterface $head, ?PredicateInterface $predicate = null) 
