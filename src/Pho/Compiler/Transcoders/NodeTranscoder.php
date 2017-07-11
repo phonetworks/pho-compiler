@@ -173,7 +173,7 @@ class NodeTranscoder extends AbstractTranscoder
                                     $new_array["constraints"] .= "Assert::{$constraint}(\$".$v["name"].");\n\r";
                                     break;
                                 case "regex":
-                                    $new_array["constraints"] .= "Assert::{$constraint}(\$".$v["name"].",  \"{$constraint_val}\");\n\r";
+                                    $new_array["constraints"] .= "Assert::{$constraint}(\$".$v["name"].",  \"/{$constraint_val}/\");\n\r";
                                     break;
                                 break;
                             }
