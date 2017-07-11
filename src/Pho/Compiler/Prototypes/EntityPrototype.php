@@ -62,7 +62,7 @@ class EntityPrototype implements PrototypeInterface
         $this->$property = $value;
     }
 
-    public function addField(string $name, string $type, bool $is_nullable, bool $is_list, bool $is_native, array $constraints): void
+    public function addField(string $name, string $type, bool $is_nullable, bool $is_list, bool $is_native, array $constraints, array $directives): void
     {
         $this->fields[] = [
             "name"=>$name,
@@ -70,7 +70,8 @@ class EntityPrototype implements PrototypeInterface
             "nullable"=>$is_nullable,
             "list"=>$is_list,
             "native"=>$is_native,
-            "constraints" => $constraints
+            "constraints" => $constraints,
+            "directives" => $directives
         ];
     }
 

@@ -6,6 +6,7 @@ use Pho\Framework;
 use Pho\Kernel\Kernel;
 use Pho\Kernel\Traits;
 use Pho\Kernel\Foundation;
+use Webmozart\Assert\Assert;
 
 
 {{pretext}}
@@ -24,6 +25,21 @@ class {{ class_name }} extends {{ extends }} {
     
     const DEFAULT_MOD = {{ mod }};
     const DEFAULT_MASK = {{ mask }};
+
+    {{#actor_constructor}}
+    public function __construct(\Pho\Kernel\Kernel $kernel, \Pho\Lib\Graph\GraphInterface $graph {{{ constructor }}})
+    {
+        parent::__construct($kernel, $graph);
+        {{{ constraints }}}
+    }
+    {{/actor_constructor}}
+    {{^actor_constructor}}
+    public function __construct(\Pho\Kernel\Kernel $kernel, \Pho\Kernel\Foundation\AbstractActor $actor, \Pho\Lib\Graph\GraphInterface $graph {{{ constructor }}})
+    {
+        parent::__construct($kernel, $actor, $graph);
+        {{{ constraints }}}
+    }
+    {{/actor_constructor}}
 
     protected function onIncomingEdgeRegistration(): void
     {

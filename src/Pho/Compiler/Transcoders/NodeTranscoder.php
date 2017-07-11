@@ -35,6 +35,7 @@ class NodeTranscoder extends AbstractTranscoder
         $is_volatile = false;
         $is_editable = false;
 
+        $new_array["actor_constructor"] = false;
         foreach($prototype_vars as $key=>$val) {
             // "type" determines whether it's  node or edge in the first place.
             switch($key) {
@@ -43,6 +44,8 @@ class NodeTranscoder extends AbstractTranscoder
                 break;
             case "subtype":
                 $new_array["extends"] = self::SUBTYPES[$val];
+                if($val=="actor")
+                    $new_array["actor_constructor"] = true;
                 break; 
             case "mod":
             case "mask": 
@@ -83,6 +86,106 @@ class NodeTranscoder extends AbstractTranscoder
                 $new_array[$key] = array_map(function(string $x) {
                     return str_replace(":", "Out\\", trim($x));
                 }, explode(",", $val));
+                break;
+            case "fields":
+                $new_array["constructor"] = "";
+                $new_array["constraints"] = "";
+                if(count($val)<=1)
+                    break;
+                foreach($val as $v) {
+                    if($v["name"]!="id") {
+                        if($v["directives"]["now"]) {
+                            $new_array["constraints"] .= "\$this->attributes()->".$v["name"]." = time();"."\n\r";
+                            continue;
+                        }
+                        if($v["nullable"] === true)
+                            $new_array["constructor"] .= "?";
+                        if($v["list"] === true)
+                            $new_array["constructor"] .= "array";
+                        elseif($v["native"]===false) {
+                            switch($v["type"]) {
+                                case "ID":
+                                    $new_array["constructor"] .= "string";
+                                    break;
+                                case "Date":
+                                    $new_array["constructor"] .= "int";
+                                    break;
+                                default:
+                                    $new_array["constructor"] .= $v["type"];
+                                    break;
+                            }
+                            
+                        }
+                        else {
+                            switch($v["type"]) {
+                                case "String":
+                                case "Int":
+                                case "Float":
+                                    $new_array["constructor"] .= strtolower($v["type"]);
+                                    break;
+                                case "Boolean":
+                                    $new_array["constructor"] .= "bool";
+                                    break;
+                                default:
+                                    // ? native and not any of these?
+                                    $new_array["constructor"] .= $v["type"];
+                                    break;
+                            }
+                        }
+                        if($v["directives"]["default"]===Compiler::NO_VALUE_SET) 
+                            $new_array["constructor"] .= " \$" . $v["name"] . ", ";
+                            //$new_array["constructor"] .= " \$" . $v["name"] . " = , ";
+                        else {
+                            if(is_null($v["directives"]["default"])) {
+                                $new_array["constructor"] .= " \$" . $v["name"] . " = null, ";
+                            }
+                            else {
+                                switch(gettype($v["directives"]["default"])) {
+                                    
+                                    case "boolean":
+                                        $new_array["constructor"] .= " \$" . $v["name"] . " = " . ($v["directives"]["default"]) ? "true" : "false" . ", ";
+                                        break;
+                                    case "integer":
+                                    case "double":
+                                        $new_array["constructor"] .= " \$" . $v["name"] . " = " . $v["directives"]["default"] .  ", ";
+                                        break;
+                                    case "string":
+                                    default:
+                                        $new_array["constructor"] .= " \$" . $v["name"] . " = \"".addslashes($v["directives"]["default"])."\", ";
+                                        break;
+
+                                }
+                            }
+                            
+                        }
+                            
+                        foreach($v["constraints"] as $constraint=>$constraint_val) {
+                            if(is_null($constraint_val))
+                                continue;
+                            switch($constraint) {
+                                case "minLength":
+                                case "maxLength":
+                                case "greaterThan":
+                                case "lessThan":
+                                    $new_array["constraints"] .= "Assert::{$constraint}(\$".$v["name"].", {$constraint_val});\n\r";
+                                    break;
+                                case "uuid":
+                                    $new_array["constraints"] .= "Assert::{$constraint}(\$".$v["name"].");\n\r";
+                                    break;
+                                case "regex":
+                                    $new_array["constraints"] .= "Assert::{$constraint}(\$".$v["name"].",  \"{$constraint_val}\");\n\r";
+                                    break;
+                                break;
+                            }
+                            
+                        }
+                        if($v["directives"]["md5"]) 
+                            $new_array["constraints"] .= "\$this->attributes()->".$v["name"]." = md5(\$".$v["name"].");"."\n\r";
+                        else
+                            $new_array["constraints"] .= "\$this->attributes()->".$v["name"]." = \$".$v["name"].";"."\n\r";
+                    }
+                }
+                $new_array["constructor"] = ", " .substr($new_array["constructor"], 0, -2); // strip last comma.
                 break;
             default:
                 if($key=="persistent")

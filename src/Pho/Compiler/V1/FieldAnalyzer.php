@@ -11,6 +11,7 @@
 
 namespace Pho\Compiler\V1;
 
+use Pho\Compiler\Compiler;
 use Pho\Compiler\Prototypes\PrototypeInterface;
 use Pho\Lib\GraphQL\Parser\Definitions\Field;
 
@@ -28,6 +29,12 @@ class FieldAnalyzer extends AbstractAnalyzer
 
     protected static function _checkFieldDirectives(array $directives): array
     {
+        $dirs = [
+            "md5" => false,
+            "now" => false,
+            "default" => Compiler::NO_VALUE_SET
+        ];
+
         $constraints = [
             "minLength" => null, // string
             "maxLength" => null, // string
@@ -38,25 +45,53 @@ class FieldAnalyzer extends AbstractAnalyzer
         ];
 
         foreach($directives as $directive) {
-            if($directive->name()=="constraints") {
-                foreach($directive->arguments() as $arg) {
-                    if(array_key_exists($arg->name(), $constraints)) {
-                        $constraints[$arg->name()] = $arg->value();
+            switch($directive->name()) {
+                case "constraints":
+                    foreach($directive->arguments() as $arg) {
+                        if(array_key_exists($arg->name(), $constraints)) {
+                            $constraints[$arg->name()] = $arg->value();
+                        }
+                    }     
+                    break;
+                case "md5":
+                case "now":
+                    $dirs[$directive->name()] = true;
+                    break;
+                case "default":
+                    switch(strtolower($directive->argument(0)->name())) {
+                        case "null":
+                            $dirs["default"] = null;
+                            break;
+                        case "int":
+                            $dirs["default"] = (int) $directive->argument(0)->value();
+                            break;
+                        case "boolean":
+                            $dirs["default"] = (bool) $directive->argument(0)->value();
+                            break;
+                        case "float":
+                            $dirs["default"] = (float) $directive->argument(0)->value();
+                            break;
+                        case "string":
+                        default:
+                            $dirs["default"] = (string) $directive->argument(0)->value();
+                            break;
                     }
-                }     
-                break;
+                    break;
             }
         }
 
-        return $constraints;
+        return [
+            $constraints,
+            $dirs
+        ];
 
     }
 
     protected static function unitProcess(Field $field, PrototypeInterface $prototype): void
     {
         $field_name = strtolower($field->name());
-        $constraints = self::_checkFieldDirectives($field->directives());
-        $prototype->addField($field_name, $field->type(), (bool) $field->nullable(), (bool) $field->list(), (bool) $field->native(), $constraints);
+        [$constraints, $directives] = self::_checkFieldDirectives($field->directives());
+        $prototype->addField($field_name, $field->type(), (bool) $field->nullable(), (bool) $field->list(), (bool) $field->native(), $constraints, $directives);
     }
 
 }

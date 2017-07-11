@@ -31,6 +31,8 @@ use kyeates\PSRLoggers\MockLogger;
 class Compiler
 {
 
+    const NO_VALUE_SET = "|_~_~NO!-!VALUE!-!SET~_~_|";
+
     protected static $logger;
     protected static $timer;
 
