@@ -95,7 +95,7 @@ class NodeTranscoder extends AbstractTranscoder
                 foreach($val as $v) {
                     if($v["name"]!="id") {
                         if($v["directives"]["now"]) {
-                            $new_array["constraints"] .= "\$this->attributes()->".$v["name"]." = time();"."\n\r";
+                            $new_array["constraints"] .= "        \$this->set".\Stringy\StaticStringy::upperCamelize($v["name"])."(time());"."\n\r";
                             continue;
                         }
                         if($v["nullable"] === true)
@@ -158,31 +158,7 @@ class NodeTranscoder extends AbstractTranscoder
                             }
                             
                         }
-                            
-                        foreach($v["constraints"] as $constraint=>$constraint_val) {
-                            if(is_null($constraint_val))
-                                continue;
-                            switch($constraint) {
-                                case "minLength":
-                                case "maxLength":
-                                case "greaterThan":
-                                case "lessThan":
-                                    $new_array["constraints"] .= "Assert::{$constraint}(\$".$v["name"].", {$constraint_val});\n\r";
-                                    break;
-                                case "uuid":
-                                    $new_array["constraints"] .= "Assert::{$constraint}(\$".$v["name"].");\n\r";
-                                    break;
-                                case "regex":
-                                    $new_array["constraints"] .= "Assert::{$constraint}(\$".$v["name"].",  \"/{$constraint_val}/\");\n\r";
-                                    break;
-                                break;
-                            }
-                            
-                        }
-                        if($v["directives"]["md5"]) 
-                            $new_array["constraints"] .= "\$this->attributes()->".$v["name"]." = md5(\$".$v["name"].");"."\n\r";
-                        else
-                            $new_array["constraints"] .= "\$this->attributes()->".$v["name"]." = \$".$v["name"].";"."\n\r";
+                        $new_array["constraints"] .= "        \$this->set".\Stringy\StaticStringy::upperCamelize($v["name"])."(\$".$v["name"].");"."\n\r";
                     }
                 }
                 $new_array["constructor"] = ", " .substr($new_array["constructor"], 0, -2); // strip last comma.
