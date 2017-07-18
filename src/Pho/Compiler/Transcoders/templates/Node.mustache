@@ -25,6 +25,8 @@ class {{ class_name }} extends {{ extends }} {
     const DEFAULT_MOD = {{ mod }};
     const DEFAULT_MASK = {{ mask }};
 
+    const FIELDS = "{{{ fields }}}";
+
     {{#actor_constructor}}
     public function __construct(\Pho\Kernel\Kernel $kernel, \Pho\Lib\Graph\GraphInterface $graph {{{ constructor }}})
     {

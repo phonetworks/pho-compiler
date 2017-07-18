@@ -90,10 +90,15 @@ class NodeTranscoder extends AbstractTranscoder
             case "fields":
                 $new_array["constructor"] = "";
                 $new_array["constraints"] = "";
+                $new_array["fields"] = [];
                 if(count($val)<=1)
                     break;
                 foreach($val as $v) {
                     if($v["name"]!="id") {
+                        $new_array["fields"][$v["name"]] = [
+                            "constraints" => $v["constraints"],
+                            "directives" => $v["directives"],
+                        ];
                         if($v["directives"]["now"]) {
                             $new_array["constraints"] .= "        \$this->set".\Stringy\StaticStringy::upperCamelize($v["name"])."(time());"."\n\r";
                             continue;
@@ -161,6 +166,7 @@ class NodeTranscoder extends AbstractTranscoder
                         $new_array["constraints"] .= "        \$this->set".\Stringy\StaticStringy::upperCamelize($v["name"])."(\$".$v["name"].");"."\n\r";
                     }
                 }
+                $new_array["fields"] = addslashes(json_encode($new_array["fields"]));
                 $new_array["constructor"] = ", " .substr($new_array["constructor"], 0, -2); // strip last comma.
                 break;
             default:
