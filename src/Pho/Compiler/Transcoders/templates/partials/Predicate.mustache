@@ -2,23 +2,9 @@ class {{ class_name }}Predicate extends {{ extends }}Predicate
 {
     protected $binding = {{ is_binding }};
     
-    {{# consumer }}
-    const T_CONSUMER = true;
-    {{/consumer}}
-
-    {{# notifier }}
-    const T_NOTIFIER = true;
-    {{/notifier}}
-    
-    {{# subscriber }}
-    const T_SUBSCRIBER = true;
-    {{/subscriber}}
-    
-    {{# formative }}
-    const T_FORMATIVE = true;
-    {{/formative}}
-    
-    {{# persistent }}
-    const T_PERSISTENT = true;
-    {{/persistent}}
+    const T_CONSUMER = {{ is_consumer }};
+    const T_NOTIFIER = {{ is_notifier }};
+    const T_SUBSCRIBER = {{ is_subscriber }};
+    const T_FORMATIVE = {{ is_formative }};
+    const T_PERSISTENT = {{ is_persistent }};
 }

@@ -29,6 +29,7 @@ class EdgeTranscoder extends AbstractTranscoder
         $prototype_vars = $this->prototype->toArray();
         $new_array = [];
         $may_be_persistent = true;
+        $new_array["formative"] = null;
 
         foreach($prototype_vars as $key=>$val) {
             // "type" determines whether it's  node or edge in the first place.
@@ -46,7 +47,14 @@ class EdgeTranscoder extends AbstractTranscoder
                 }
                 break;
             case "binding":
-                $new_array["is_binding"] = $val ? "true" : "false";
+            case "formative":
+            case "persistent":
+            case "subscriber":
+            case "notifier":
+            case "consumer":
+                $new_array["is_".$key] = $val ? "true" : "false";
+                if($key=="formative" && $val)
+                    $new_array[$key] = true;
                 break;
             case "tail_node":
                 $new_array[$key] = trim($val);
@@ -100,8 +108,13 @@ class EdgeTranscoder extends AbstractTranscoder
         $check_for_must_have("tail_node");
 
         $check_with_fallback("is_binding", "false");
-        $check_with_fallback("formative", "false");
-        $check_with_fallback("persistent", "true");
+        $check_with_fallback("is_formative", "false");
+        $check_with_fallback("is_persistent", "true");
+        $check_with_fallback("is_notifier", "false");
+        $check_with_fallback("is_subscriber", "false");
+        $check_with_fallback("is_consumer", "false");
+
+
         $check_with_fallback("expiration", 0);
         $check_with_fallback("with_notification", false);
         
