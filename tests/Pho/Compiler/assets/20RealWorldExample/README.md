@@ -2,9 +2,10 @@
 
 This is a simple graph for a Twitter clone, in its most fundamental form.
 
-There are two nodes:
-1. **User**, an Actor
-2. **Status**, an Object
+There are three nodes:
+1. **Graph**, a Graph (obligatory)
+2. **User**, an Actor
+3. **Status**, an Object
 
 And, there are four edges:
 1. **Post**, from User to Status
