@@ -30,9 +30,11 @@ class {{ class_name }} extends {{ extends }} {
     {{#actor_constructor}}
     public function __construct(\Pho\Kernel\Kernel $kernel, \Pho\Lib\Graph\GraphInterface $graph {{{ constructor }}})
     {
+        {{# incoming_edges_exist }}
         {{#incoming_edges}}
         $this->registerIncomingEdges({{.}}::class);
         {{/incoming_edges}}
+        {{/ incoming_edges_exist }}
         parent::__construct($kernel, $graph);
         {{{ constraints }}}
     }
@@ -40,9 +42,11 @@ class {{ class_name }} extends {{ extends }} {
     {{^actor_constructor}}
     public function __construct(\Pho\Kernel\Kernel $kernel, \Pho\Kernel\Foundation\AbstractActor $actor, \Pho\Lib\Graph\GraphInterface $graph {{{ constructor }}})
     {
+        {{# incoming_edges_exist }}
         {{#incoming_edges}}
         $this->registerIncomingEdges({{.}}::class);
         {{/incoming_edges}}
+        {{/ incoming_edges_exist }}
         parent::__construct($kernel, $actor, $graph);
         {{{ constraints }}}
     }
