@@ -18,9 +18,9 @@ class NodeTranscoder extends AbstractTranscoder
 {
 
     const SUBTYPES = [
-            "actor" => "Foundation\AbstractActor",
-            "graph" => "Foundation\AbstractGraph",
-            "object" => "Foundation\AbstractObject"
+            "actor" => "Foundation\AbstractActorDP",
+            "graph" => "Foundation\AbstractGraphDP",
+            "object" => "Foundation\AbstractObjectDP"
     ];
 
     const MUST_HAVES = [
@@ -103,7 +103,7 @@ class NodeTranscoder extends AbstractTranscoder
                             "directives" => $v["directives"],
                         ];
                         if($v["directives"]["now"]) {
-                            $new_array["constraints"] .= "        \$this->set".\Stringy\StaticStringy::upperCamelize($v["name"])."(time());"."\n\r";
+                            $new_array["constraints"] .= "        \$this->set".\Stringy\StaticStringy::upperCamelize($v["name"])."(time(), true);"."\n\r";
                             continue;
                         }
                         if($v["nullable"] === true)
@@ -166,7 +166,7 @@ class NodeTranscoder extends AbstractTranscoder
                             }
                             
                         }
-                        $new_array["constraints"] .= "        \$this->set".\Stringy\StaticStringy::upperCamelize($v["name"])."(\$".$v["name"].");"."\n\r";
+                        $new_array["constraints"] .= "        \$this->set".\Stringy\StaticStringy::upperCamelize($v["name"])."(\$".$v["name"].", true);"."\n\r";
                     }
                 }
                 $new_array["fields"] = addslashes(json_encode($new_array["fields"]));

@@ -37,6 +37,7 @@ class {{ class_name }} extends {{ extends }} {
         {{/ incoming_edges_exist }}
         parent::__construct($kernel, $graph);
         {{{ constraints }}}
+        $this->persist();
     }
     {{/actor_constructor}}
     {{^actor_constructor}}
@@ -49,6 +50,7 @@ class {{ class_name }} extends {{ extends }} {
         {{/ incoming_edges_exist }}
         parent::__construct($kernel, $actor, $graph);
         {{{ constraints }}}
+        $this->persist();
     }
     {{/actor_constructor}}
 
