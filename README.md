@@ -1,4 +1,4 @@
-# pho-compiler
+# pho-compiler [![Build Status](https://travis-ci.org/phonetworks/pho-lib-graph.svg?branch=master)](https://travis-ci.org/phonetworks/pho-lib-graph) [![Code Climate](https://img.shields.io/codeclimate/github/phonetworks/pho-compiler.svg)](https://codeclimate.com/github/phonetworks/pho-compiler)
 
 Compiles GraphQL schema into PHP executables for use throughout Pho stack.
 
