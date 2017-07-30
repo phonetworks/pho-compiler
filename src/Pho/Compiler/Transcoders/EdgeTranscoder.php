@@ -17,10 +17,10 @@ class EdgeTranscoder extends AbstractTranscoder
 {
 
     const SUBTYPES = [
-            "read" => "Framework\ActorOut\Read",
-            "write" => "Framework\ActorOut\Write",
-            "subscribe" => "Framework\ActorOut\Subscribe",
-            "mention" => "Framework\ObjectOut\Mention"
+            "read" => "Foundation\ActorOut\Read",
+            "write" => "Foundation\ActorOut\Write",
+            "subscribe" => "Foundation\ActorOut\Subscribe",
+            "mention" => "Foundation\ObjectOut\Mention"
     ];
 
 
