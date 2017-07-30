@@ -47,6 +47,7 @@ class EdgeTranscoder extends AbstractTranscoder
                 }
                 break;
             case "binding":
+            case "multiplicable":
             case "formative":
             case "persistent":
             case "subscriber":
@@ -108,6 +109,7 @@ class EdgeTranscoder extends AbstractTranscoder
         $check_for_must_have("tail_node");
 
         $check_with_fallback("is_binding", "false");
+        $check_with_fallback("is_multiplicable", "true");
         $check_with_fallback("is_formative", "false");
         $check_with_fallback("is_persistent", "true");
         $check_with_fallback("is_notifier", "false");

@@ -15,6 +15,7 @@ class EdgePrototype extends EntityPrototype
 {
 
     protected $binding;
+    protected $multiplicable;
     protected $persistent;
     protected $consumer;
     protected $notifier;
