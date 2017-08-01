@@ -31,7 +31,7 @@ class TestCase extends \PHPUnit\Framework\TestCase {
         $cdir = scandir($dir); 
         foreach ($cdir as $key => $value) 
         { 
-            if (!in_array($value,array(".","..", "README.md"))) 
+            if (!in_array($value,array(".","..", "README.md", "LICENSE"))) 
             { 
                 if (is_dir($dir . DIRECTORY_SEPARATOR . $value)) 
                 { 
