@@ -1,3 +1,6 @@
 [submodule "tests/Pho/Compiler/assets/20RealWorldExample"]
 	path = tests/Pho/Compiler/assets/20RealWorldExample
 	url = https://github.com/pho-recipes/Basic.git
+[submodule "tests/Pho/Compiler/assets/99Recipes/Twitter"]
+	path = tests/Pho/Compiler/assets/99Recipes/Twitter
+	url = https://github.com/pho-recipes/Twitter
