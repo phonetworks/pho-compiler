@@ -39,6 +39,10 @@ class {{ class_name }} extends {{ extends }} {
     
     {{/head_nodes_only}}
 
+    {{# fields_exists }}
+    const FIELDS = "{{{ fields }}}";
+    {{/ fields_exists }}
+
 }
 
 /* Predicate to load as a partial */

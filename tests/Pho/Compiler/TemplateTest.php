@@ -100,7 +100,8 @@ class TemplateTest extends TestCase {
 
     public function test20RealWorldExample() {
         $GLOBALS["emre"] = 1;
-        $dir = __DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."20RealWorldExample";
+        //$dir = __DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."20RealWorldExample";
+        $dir = __DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."99Recipes/Twitter";
         foreach($this->_dirToArray($dir) as $file) {
              $this->compiler->compile($file);
         }

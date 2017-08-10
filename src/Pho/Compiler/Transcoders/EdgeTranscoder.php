@@ -30,6 +30,7 @@ class EdgeTranscoder extends AbstractTranscoder
         $new_array = [];
         $may_be_persistent = true;
         $new_array["formative"] = null;
+        $new_array["fields_exists"] = false;
 
         foreach($prototype_vars as $key=>$val) {
             // "type" determines whether it's  node or edge in the first place.
@@ -79,6 +80,21 @@ class EdgeTranscoder extends AbstractTranscoder
                 );
                 break;
                 // 
+            case "fields":
+                $new_array["fields"] = [];
+                if(count($val)<=1)
+                    break;
+                foreach($val as $v) {
+                    if($v["name"]!="id") {
+                        $new_array["fields"][$v["name"]] = [
+                            "constraints" => $v["constraints"],
+                            "directives" => $v["directives"],
+                        ];
+                    }
+                }
+                $new_array["fields_exists"] = true;
+                $new_array["fields"] = addslashes(json_encode($new_array["fields"]));
+                break;
             default:
                 $new_array[$key] = $val;
                 break;
