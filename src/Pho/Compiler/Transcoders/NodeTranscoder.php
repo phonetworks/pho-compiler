@@ -37,6 +37,7 @@ class NodeTranscoder extends AbstractTranscoder
 
         $new_array["incoming_edges_exist"] = false;
         $new_array["actor_constructor"] = false;
+        $new_array["with_tails"] = false;
         foreach($prototype_vars as $key=>$val) {
             // "type" determines whether it's  node or edge in the first place.
             switch($key) {
@@ -82,12 +83,20 @@ class NodeTranscoder extends AbstractTranscoder
                 break;
             case "outgoing_edges":
                 $new_array[$key] = array_map("trim", explode(",", $val));
+                foreach($new_array[$key] as $i=>$x)
+                    if(empty($x))
+                        unset($new_array[$key][$i]);
+                $new_array["with_tails"] = (is_array($new_array[$key]) && count($new_array[$key]) >= 1);
                 break;
             case "incoming_edges":
                 if(!is_null($val))
                     $new_array["incoming_edges_exist"] = true;
                 $new_array[$key] = array_map(function(string $x) {
-                    return str_replace(":", "Out\\", trim($x));
+                    $x = trim($x);
+                    if(strlen($x)>6 && substr($x,0, 6)=="Edges:") {
+                        return str_replace(":", "\\", $x);
+                    }
+                    return str_replace(":", "Out\\", $x);
                 }, explode(",", $val));   
                 break;
             case "fields":

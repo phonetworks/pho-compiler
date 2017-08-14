@@ -124,21 +124,59 @@ class Compiler
             }
         }
         foreach($output["edge"] as $edge) {
-                $tail = $edge["tail"];
-                $node_file = $output_dir.DIRECTORY_SEPARATOR.$tail.".php";
-                $edges_dir = $output_dir.DIRECTORY_SEPARATOR.$tail."Out";
-                if(!file_exists($node_file)) { 
-                    throw new Exceptions\NodeEdgeMismatchImparityException($node_file);
-                }
-                if(!file_exists($edges_dir)) { 
-                    throw new Exceptions\NodeEdgeMismatchImparityException($edges_dir);
-                }
-                $edge_file = $edges_dir.DIRECTORY_SEPARATOR.$edge["name"].".php";
-                if(!file_exists($edge_file)) {
-                    throw new Exceptions\NodeEdgeMismatchImparityException($edge_file);
-                }
-                file_put_contents($edge_file, $edge["file"]);
+                $tails = explode(",", $edge["tail"]);
+                $multiple = ( count($tails) > 1 );
+                foreach($tails as $tail) {
+                    $tail = trim($tail);
+                    if($multiple || in_array($tail, ["ActorNode", "ObjectNode", "GraphNode"])) {
+                        @mkdir($output_dir.DIRECTORY_SEPARATOR."Edges");
+                        $edge_file = $output_dir.DIRECTORY_SEPARATOR."Edges".DIRECTORY_SEPARATOR.$edge["name"].".php";
+                    }
+                    else {
+                        $node_file = $output_dir.DIRECTORY_SEPARATOR.$tail.".php";
+                        $edges_dir = $output_dir.DIRECTORY_SEPARATOR.$tail."Out";
+                        if(!file_exists($node_file)) { 
+                            throw new Exceptions\NodeEdgeMismatchImparityException($node_file);
+                        }
+                        if(!file_exists($edges_dir)) { 
+                            throw new Exceptions\NodeEdgeMismatchImparityException($edges_dir);
+                        }
+                        $edge_file = $edges_dir.DIRECTORY_SEPARATOR.$edge["name"].".php";
+                        if(!file_exists($edge_file)) {
+                            throw new Exceptions\NodeEdgeMismatchImparityException($edge_file);
+                        }
+                    }
+                    file_put_contents($edge_file, $edge["file"]);
+                }    
         }
+
+        # https://stackoverflow.com/questions/24783862/list-all-the-files-and-folders-in-a-directory-with-php-recursive-function
+        $getDirContents = function (string $dir, array &$results = []) use (&$getDirContents)
+        {
+            $files = scandir($dir);
+            foreach($files as $key => $value){
+                $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
+                if(!is_dir($path)) {
+                    $results[] = $path;
+                } else if($value != "." && $value != "..") {
+                    $getDirContents($path, $results);
+                    $results[] = $path;
+                }
+            }
+
+            return $results;
+        };
+
+        $res = $getDirContents($output_dir);
+        foreach($res as $r) {
+            if(!is_dir($r) && empty(file_get_contents($r)))
+                @unlink($r);
+        }
+        foreach($res as $r) {
+            if(is_dir($r) && count(scandir($r))==2)
+                @rmdir($r);
+        }
+
     }
 
     public function ast(): array

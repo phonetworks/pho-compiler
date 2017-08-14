@@ -31,6 +31,7 @@ class EdgeTranscoder extends AbstractTranscoder
         $may_be_persistent = true;
         $new_array["formative"] = null;
         $new_array["fields_exists"] = false;
+        $new_array["multiple_tails"] = false;
 
         foreach($prototype_vars as $key=>$val) {
             // "type" determines whether it's  node or edge in the first place.
@@ -60,6 +61,8 @@ class EdgeTranscoder extends AbstractTranscoder
                 break;
             case "tail_node":
                 $new_array[$key] = trim($val);
+                if(strpos($val, ",")!==false)
+                    $new_array["multiple_tails"] = true;
                 break;
             case "head_nodes":
                 $new_array[$key] = implode(
