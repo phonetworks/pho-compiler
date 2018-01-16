@@ -2,6 +2,17 @@
 
 Compiles GraphQL schema into PHP executables for use throughout Pho stack.
 
+## Getting Started
+
+Please note, this repository uses submodules, for unit tests. The recommended way to install pho-compiler is through composer.
+
+```shell
+git clone https://github.com/phonetworks/pho-compiler
+git submodule init
+git submodule update
+composer install
+```
+
 ## Schema
 
 ### Recommendations
