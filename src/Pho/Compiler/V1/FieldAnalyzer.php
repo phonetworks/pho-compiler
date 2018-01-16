@@ -30,6 +30,7 @@ class FieldAnalyzer extends AbstractAnalyzer
     protected static function _checkFieldDirectives(array $directives): array
     {
         $dirs = [
+            "sha1" => false,
             "md5" => false,
             "now" => false,
             "default" => Compiler::NO_VALUE_SET
@@ -38,7 +39,7 @@ class FieldAnalyzer extends AbstractAnalyzer
         $constraints = [
             "minLength" => null, // string
             "maxLength" => null, // string
-            "uuid" => null, // string
+            "id" => null, // string
             "regex" => null, // string
             "greaterThan" => null, // int
             "lessThan" => null, // int
