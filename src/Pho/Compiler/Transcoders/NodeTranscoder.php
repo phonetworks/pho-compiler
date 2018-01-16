@@ -173,7 +173,10 @@ class NodeTranscoder extends AbstractTranscoder
                             }
                             
                         }
-                        $new_array["constraints"] .= "        \$this->set".\Stringy\StaticStringy::upperCamelize($v["name"])."(\$".$v["name"].", true);"."\n\r";
+                        if($v["type"]!="Date")
+                            $new_array["constraints"] .= "        \$this->set".\Stringy\StaticStringy::upperCamelize($v["name"])."(\$".$v["name"].", true);"."\n\r";
+                        else
+                            $new_array["constraints"] .= "        \$this->set".\Stringy\StaticStringy::upperCamelize($v["name"])."(strtotime(\$".$v["name"]."), true);"."\n\r";
                     }
                 }
                 $new_array["fields"] = addslashes(json_encode($new_array["fields"]));
