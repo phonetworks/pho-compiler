@@ -42,6 +42,7 @@ class FieldAnalyzer extends AbstractAnalyzer
             "regex" => null, // string
             "greaterThan" => null, // int
             "lessThan" => null, // int
+            "format" => null // string
         ];
 
         foreach($directives as $directive) {
