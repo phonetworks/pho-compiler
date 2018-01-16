@@ -99,6 +99,7 @@ class TemplateTest extends TestCase {
 
 
     public function test20RealWorldExample() {
+        $this->markTestSkipped("This is a custom that may be ignored.");
         $GLOBALS["emre"] = 1;
         $dir = "/Users/groups/Code/incubator/Facebook";
         //$dir = __DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."20RealWorldExample";
