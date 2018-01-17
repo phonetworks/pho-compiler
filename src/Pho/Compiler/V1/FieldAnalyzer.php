@@ -33,7 +33,9 @@ class FieldAnalyzer extends AbstractAnalyzer
             "sha1" => false,
             "md5" => false,
             "now" => false,
-            "default" => Compiler::NO_VALUE_SET
+            "default" => Compiler::NO_VALUE_SET,
+            "unique" => false,
+            "index" => false
         ];
 
         $constraints = [
@@ -57,6 +59,8 @@ class FieldAnalyzer extends AbstractAnalyzer
                     break;
                 case "md5":
                 case "now":
+                case "index":
+                case "unique":
                     $dirs[$directive->name()] = true;
                     break;
                 case "default":
