@@ -113,4 +113,12 @@ class AnalysisTest extends TestCase {
         $this->assertEquals(4, $ast[1]["fields"][2]["constraints"]["greaterThan"]);
     }
 
+    public function test11NewEdgeLabels() {
+        $ast = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."11NewEdgeLabels.pgql")->ast();
+        $this->assertEquals("do", $ast[0]["label_head_callable_singular"]);
+        $this->assertEquals("dos", $ast[0]["label_head_callable_plural"]);
+        $this->assertEquals("doSo", $ast[0]["label_tail_callable_singular"]);
+        $this->assertEquals("doSos", $ast[0]["label_tail_callable_plural"]);
+    }
+
 }

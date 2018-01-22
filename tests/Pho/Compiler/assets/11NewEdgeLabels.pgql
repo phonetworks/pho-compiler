@@ -1,0 +1,13 @@
+# pho-graphql-v1
+
+type Do implements WriteEdge 
+@nodes(head:"Actor", tail:"Object")
+@properties(binding: true)
+@labels(headSingular:"done", headPlural: "dones", tailSingular: "doer", tailPlural: "doers",
+headCallableSingular: "do", headCallablePlural: "dos",
+tailCallableSingular: "doSo", tailCallablePlural: "doSos"
+)
+{
+    id: ID,
+    custom_field: String
+}

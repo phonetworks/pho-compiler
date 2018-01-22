@@ -32,5 +32,10 @@ class EdgePrototype extends EntityPrototype
     protected $label_head_plural;
     protected $label_tail_plural;
 
+    protected $label_head_callable_singular;
+    protected $label_tail_callable_singular;
+    protected $label_head_callable_plural;
+    protected $label_tail_callable_plural;
+
 
 }

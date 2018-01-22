@@ -19,6 +19,10 @@ class EdgeLabelsArgumentAnalyzer extends AbstractArgumentAnalyzer
         "tailsingular"=>"setLabelTailSingular",
         "headplural"=>"setLabelHeadPlural", 
         "tailplural"=>"setLabelTailPlural",
+        "headcallablesingular"=>"setLabelHeadCallableSingular",
+        "headcallableplural"=>"setLabelHeadCallablePlural",
+        "tailcallablesingular"=>"setLabelTailCallableSingular",
+        "tailcallableplural"=>"setLabelTailCallablePlural",
     ];
 
 }
