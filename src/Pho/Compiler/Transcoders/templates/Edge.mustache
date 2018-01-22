@@ -30,6 +30,11 @@ class {{ class_name }} extends {{ extends }} {
     const TAIL_LABEL = "{{ label_tail_singular }}";
     const TAIL_LABELS = "{{ label_tail_plural }}";
     
+    const TAIL_CALLABLE_LABEL = "{{ label_tail_callable_singular }}";
+    const TAIL_CALLABLE_LABELS = "{{ label_tail_callable_plural }}";
+    const HEAD_CALLABLE_LABEL = "{{ label_head_callable_singular }}";
+    const HEAD_CALLABLE_LABELS = "{{ label_head_callable_plural }}";
+    
     {{#head_nodes_only}}
     const SETTABLES = [{{ head_nodes_only }}];
     {{/head_nodes_only}}
