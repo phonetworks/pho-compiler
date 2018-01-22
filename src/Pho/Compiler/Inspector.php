@@ -26,10 +26,53 @@ use Zend\File\ClassFileLocator;
  */
 class Inspector
 {
+
+    protected $folder;
+
     /**
-     * Validates the compiled schema directory.
+     * Constructor.
      *
      * @param string $folder where the **compiled** schema files (PHP) reside
+     */
+    public function __construct(string $folder)
+    {
+        $this->folder = $folder;
+    }
+
+    /**
+     * Documents all available objects and their methods.
+     *
+     * @return string
+     */
+    public function document(): string
+    {
+        $locator = new ClassFileLocator($this->folder);
+        foreach ($locator as $file) {
+            $filename = str_replace($this->folder . DIRECTORY_SEPARATOR, '', $file->getRealPath());
+            foreach ($file->getClasses() as $class) {
+                $reflector = new \ReflectionClass($class);
+                $parent = $reflector->getParentClass()->getName();
+                $class_name = $reflector->getShortName();
+                switch($parent) {
+                case "Pho\Framework\Object":
+                    break;
+                case "Pho\Framework\Actor":
+                    break;
+                case "Pho\Framework\Frame":
+                    break;
+                default:
+                    $ignored_classes[] = [
+                        "filename" => $filename, 
+                        "classname" => $class_name
+                    ];
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Validates the compiled schema directory.
      * 
      * @return void
      * 
@@ -37,14 +80,14 @@ class Inspector
      * @throws Exceptions\MissingActorImparityException if there is no actor node found.
      * @throws Exceptions\AbsentEdgeDirImparityException if the node does not have a directory for its edges.
      */
-    public static function assertParity(string $folder): void
+    public function assertParity(): void
     {
         $ignored_classes = [];
         $object_exists = false;
         $actor_exists = false;
-        $locator = new ClassFileLocator($folder);
+        $locator = new ClassFileLocator($this->folder);
         foreach ($locator as $file) {
-            $filename = str_replace($folder . DIRECTORY_SEPARATOR, '', $file->getRealPath());
+            $filename = str_replace($this->folder . DIRECTORY_SEPARATOR, '', $file->getRealPath());
             foreach ($file->getClasses() as $class) {
                 $reflector = new \ReflectionClass($class);
                 $parent = $reflector->getParentClass()->getName();
@@ -53,7 +96,7 @@ class Inspector
                 case "Pho\Framework\Object":
                     $object_exists = true;
                     try {
-                        self::checkEdgeDir($folder, $class_name);
+                        $this->checkEdgeDir($class_name);
                     }
                     catch(Exceptions\AbsentEdgeDirImparityException $e) {
                         throw $e;
@@ -62,7 +105,7 @@ class Inspector
                 case "Pho\Framework\Actor":
                     $actor_exists = true;
                     try {
-                        self::checkEdgeDir($folder, $class_name);
+                        $this->checkEdgeDir($class_name);
                     }
                     catch(Exceptions\AbsentEdgeDirImparityException $e) {
                         throw $e;
@@ -70,7 +113,7 @@ class Inspector
                     break;
                 case "Pho\Framework\Frame":
                     try {
-                        self::checkEdgeDir($folder, $class_name);
+                        $this->checkEdgeDir($class_name);
                     }
                     catch(Exceptions\AbsentEdgeDirImparityException $e) {
                         throw $e;
@@ -78,34 +121,33 @@ class Inspector
                     break;
                 default:
                     $ignored_classes[] = [
-                    "filename" => $filename, 
-                    "classname" => $class_name
+                        "filename" => $filename, 
+                        "classname" => $class_name
                     ];
                     break;
                 }
             }
         }
         if(!$object_exists) {
-            throw new Exceptions\MissingObjectImparityException($folder);
+            throw new Exceptions\MissingObjectImparityException($this->folder);
         }
         if(!$actor_exists) {
-            throw new Exceptions\MissingActorImparityException($folder);
+            throw new Exceptions\MissingActorImparityException($this->folder);
         }
     }  
 
     /**
      * Checks if the node has a directory for its edges.
      *
-     * @param string $folder    The folder of compiled schema.
      * @param string $node_name The name of the node.
      * 
      * @return void
      * 
      * @throws Exceptions\AbsentEdgeDirImparityException if the node does not have a directory for its edges.
      */
-    protected static function checkEdgeDir(string $folder, string $node_name): void
+    protected function checkEdgeDir(string $node_name): void
     {
-        $dirname = $folder.DIRECTORY_SEPARATOR.$node_name."Out";
+        $dirname = $this->folder.DIRECTORY_SEPARATOR.$node_name."Out";
         if(!file_exists($dirname)) {
             throw new Exceptions\AbsentEdgeDirImparityException($dirname, $node_name);
         }
