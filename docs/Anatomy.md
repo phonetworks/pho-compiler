@@ -219,6 +219,23 @@ The example below illustrates the example above: (where "->" represents edge, an
 * (my reader) -> (my read)
 * (my readers) -> (my reads)
 
+In addition to the four labels mentioned above, there are four others that are optional; They are called **callables**
+and their existence make the edge itself fetchable via simple getter calls. These are:
+
+* **headCallableSingular**: what the head would call to fetch this node, in singular form.
+* **headCallablePlural**: what the head would call to fetch this node, in plural form.
+* **tailCallableSingular**: what the tail would call to fetch this node, in singular form.
+* **tailCallablePlural**: what the tail would call to fetch this node, in plural form.
+
+To illustrate, if the "headCallablePlural" of an edge is set to be "incomingMessages" then the head node could fetch
+this edge simply with the method ```getIncomingMessages()``` or check with ```hasIncomingMessage($id)``` where 
+"incomingMessage" is the "headCallableSingular".  
+
+> Regardless the format of the labels (camelized, underscored, upper-camelized etc) the getter and setter methods always
+> use the upper-camelized version; e.g. getIncomingMessages for labels like incoming_messages, or incomingMessages or
+> IncomingMessages.
+
+
 #### 4.3 Properties
 
 Defines the edge's core traits:
@@ -226,7 +243,7 @@ Defines the edge's core traits:
 * **binding**: whether when the edge is deleted, its head node is also deleted.
 * **multiplicable**: whether there may be multiple such edges from the tail to the head.
 * **persistent**: whether the edge persists on the disk.
-* **consumer**: whether the edge, when created, returns itself or the head.
+* **consumer**: whether the edge, when created (or set), returns itself or the head.
 * **notifier**: whether the edge, when connected to a head, notifies the head.
 * **subscriber**: whether the edge, when connected to a head, updates head's changes to the tail.
 * **formative**: whether the edge, when created, also triggers a head node creation.
