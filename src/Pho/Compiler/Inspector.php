@@ -41,34 +41,14 @@ class Inspector
 
     /**
      * Documents all available objects and their methods.
+     * 
+     * @todo incomplete
      *
      * @return string
      */
     public function document(): string
     {
-        $locator = new ClassFileLocator($this->folder);
-        foreach ($locator as $file) {
-            $filename = str_replace($this->folder . DIRECTORY_SEPARATOR, '', $file->getRealPath());
-            foreach ($file->getClasses() as $class) {
-                $reflector = new \ReflectionClass($class);
-                $parent = $reflector->getParentClass()->getName();
-                $class_name = $reflector->getShortName();
-                switch($parent) {
-                case "Pho\Framework\Object":
-                    break;
-                case "Pho\Framework\Actor":
-                    break;
-                case "Pho\Framework\Frame":
-                    break;
-                default:
-                    $ignored_classes[] = [
-                        "filename" => $filename, 
-                        "classname" => $class_name
-                    ];
-                    break;
-                }
-            }
-        }
+        // this will use an outside library
     }
 
     /**
