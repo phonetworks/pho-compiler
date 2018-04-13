@@ -37,5 +37,8 @@ class EdgePrototype extends EntityPrototype
     protected $label_head_callable_plural;
     protected $label_tail_callable_plural;
 
+    protected $label_simple_feed;
+    protected $label_aggregated_feed;
+
 
 }

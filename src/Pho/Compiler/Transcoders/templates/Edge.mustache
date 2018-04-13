@@ -34,6 +34,9 @@ class {{ class_name }} extends {{ extends }} {
     const TAIL_CALLABLE_LABELS = "{{ label_tail_callable_plural }}";
     const HEAD_CALLABLE_LABEL = "{{ label_head_callable_singular }}";
     const HEAD_CALLABLE_LABELS = "{{ label_head_callable_plural }}";
+
+    const FEED_SIMPLE_LABEL = "{{ label_simple_feed }}";
+    const FEED_AGGREGATED_LABEL = "{{ label_aggregated_feed }}";
     
     {{#head_nodes_only}}
     const SETTABLES = [{{ head_nodes_only }}];
