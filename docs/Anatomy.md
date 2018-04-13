@@ -217,7 +217,8 @@ Defines the labels of head and tail nodes.
 * **headPlural**: what the head nodes would be called, in plural form.
 * **tailSingular**: what the tail nodes would be called, in singular form.
 * **tailPlural**: what the tail nodes would be called, in plural form.
-
+* **feedSimple**: the update for flat feeds or single items. %tail.id% represents the id of the tail node. %head.field% represents the field of the head node. Published when the edge is created and connected.
+* **feedAggregated**: the update for aggregated feeds with multiple items. %tail.id% represents the id of the tail node. %head.field% represents the field of the head node. Published when the edge is created and connected.
 ```
 ...
 type Consume implements ReadEdge 
