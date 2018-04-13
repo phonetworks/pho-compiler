@@ -23,8 +23,8 @@ class EdgeLabelsArgumentAnalyzer extends AbstractArgumentAnalyzer
         "headcallableplural"=>"setLabelHeadCallablePlural",
         "tailcallablesingular"=>"setLabelTailCallableSingular",
         "tailcallableplural"=>"setLabelTailCallablePlural",
-        "feedSimple"=>"setLabelSimpleFeed",
-        "feedAggregated"=>"setLabelAggregatedFeed"
+        "feedsimple"=>"setLabelSimpleFeed",
+        "feedaggregated"=>"setLabelAggregatedFeed"
     ];
 
 }
