@@ -121,4 +121,12 @@ class AnalysisTest extends TestCase {
         $this->assertEquals("doSos", $ast[0]["label_tail_callable_plural"]);
     }
 
+    public function test12Feed() {
+        $ast = $this->compiler->compile(__DIR__.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."12Feed.pgql")->ast();
+        $this->assertEquals("%id% was created", $ast[0]["simple_feed_update"]);
+        $this->assertEquals("%id% were created", $ast[0]["aggregated_feed_update"]);
+        $this->assertEquals("%tail.id% did %head.id%", $ast[1]["label_simple_feed"]);
+        $this->assertEquals("%tail.id% did %head.id% (aggregated)", $ast[1]["label_aggregated_feed"]);
+    }
+
 }
