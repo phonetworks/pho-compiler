@@ -15,8 +15,8 @@ class NodeFeedArgumentAnalyzer extends AbstractArgumentAnalyzer
 {
 
     protected static $prototype_functions = [
-        "simpleUpdate"=>"setSimpleFeedUpdate", 
-        "aggregatedUpdate"=>"setAggregatedFeedUpdate"
+        "simple"=>"setSimpleFeedUpdate", 
+        "aggregated"=>"setAggregatedFeedUpdate"
     ];
 
 }
