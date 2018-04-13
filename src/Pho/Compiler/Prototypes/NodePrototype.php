@@ -22,4 +22,7 @@ class NodePrototype extends EntityPrototype
     protected $revisionable;
     protected $editable;
     protected $persistent;
+    
+    protected $simple_feed_update;
+    protected $aggregated_feed_update;
 }

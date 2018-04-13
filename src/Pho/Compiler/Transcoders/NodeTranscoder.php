@@ -49,6 +49,10 @@ class NodeTranscoder extends AbstractTranscoder
                 if($val=="actor")
                     $new_array["actor_constructor"] = true;
                 break; 
+            case "simple_feed_update":
+            case "aggregated_feed_update":
+                $new_array[$key] = $val;
+                break;
             case "mod":
             case "mask": 
                 if(!preg_match("/^0x[0-9a-f]{5}$/i", $val)) {

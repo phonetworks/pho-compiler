@@ -14,6 +14,8 @@ type User implements ActorNode
 @edges(in:"User:Follow, Status:Mention", out:"Post, Like, Follow")
 @permissions(mod: "0x0e554", mask: "0xeeeee") 
 @properties(editable: false, volatile: false, revisionable: false)
+@feed(simpleUpdate: "%id% has joined", aggregatedUpdate: "%id% have joined") # onCreate
+
 {
     id: ID,
     birthday: Date,
@@ -177,6 +179,15 @@ type User implements ActorNode
 
 
 > https://github.com/phonetworks/pho-compiler/blob/master/src/Pho/Compiler/V1/NodePropertiesArgumentAnalyzer.php
+
+#### 3.4 Feed Directive
+
+Defines the feed updates when the node is formed. There may be two arguments:
+
+* **simpleUpdate**: update to publish for flat feeds, or single items.
+* **aggregaredUpdate**: update to publish for aggregated feeds with multiple items.
+
+Please note, you may assign variables to updates using ```%var%``` notation where var is equal to a field of the node itself.
 
     
 ### 4. Pho Edges

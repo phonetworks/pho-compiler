@@ -27,6 +27,9 @@ class {{ class_name }} extends {{ extends }} {
 
     const FIELDS = "{{{ fields }}}";
 
+    const FEED_SIMPLE = "{{{ simple_feed_update }}}";
+    const FEED_AGGREGATED = "{{{ aggregated_feed_update }}}";
+
     {{#actor_constructor}}
     public function __construct(\Pho\Kernel\Kernel $kernel, \Pho\Lib\Graph\GraphInterface $graph {{{ constructor }}})
     {
