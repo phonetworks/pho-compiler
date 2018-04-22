@@ -47,6 +47,7 @@ class {{ class_name }} extends {{ extends }} {
         parent::__construct($kernel, $graph);
         {{{ constraints }}}
         $this->persist();
+        $this->context()->emit("particle.formed", [$this]);
     }
     {{/actor_constructor}}
     {{^actor_constructor}}
@@ -66,6 +67,7 @@ class {{ class_name }} extends {{ extends }} {
         parent::__construct($kernel, $actor, $graph);
         {{{ constraints }}}
         $this->persist();
+        $this->context()->emit("particle.formed", [$this]);
     }
     {{/actor_constructor}}
 
