@@ -289,7 +289,7 @@ These directive may modify the value passed. They are:
 
 * **sha1**: takes the sha1 hash of the given String. Useful for storing passwords.
 * **md5**: similar to sha1, but shorter, faster, yet less secure (more prone to collisions)
-* **default**: the default value of the Field. Should be given in the format; ```@default(String: "value") by typecasting.
+* **default**: the default value of the Field. Should be given in the format; ```@default(String: "value")``` by typecasting.
 * **now**: sets the current time (in UNIX timestamp) as value.
 * **unique**: ensures that given field value exists one and only one time in the data store.
 * **index**: indexes the given field, making queries faster on the index.
