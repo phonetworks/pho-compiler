@@ -162,7 +162,7 @@ class NodeTranscoder extends AbstractTranscoder
                                 switch(gettype($v["directives"]["default"])) {
                                     
                                     case "boolean":
-                                        $new_array["constructor"] .= " \$" . $v["name"] . " = " . ($v["directives"]["default"]) ? "true" : "false" . ", ";
+                                        $new_array["constructor"] .= " \$" . $v["name"] . " = " . (($v["directives"]["default"]) ? "true" : "false") . ", ";
                                         break;
                                     case "integer":
                                     case "double":
