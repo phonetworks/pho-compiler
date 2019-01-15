@@ -41,7 +41,7 @@ class EdgeTranscoder extends AbstractTranscoder
                 break;
             case "subtype":
                 $new_array["extends"] = self::SUBTYPES[$val];
-                if(in_array($val, ["mention", "write"])) {
+                if(in_array($val, ["mention", "write", "subscribe"])) {
                     $new_array["with_notification"] = true;
                 }
                 else {
