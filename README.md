@@ -1,4 +1,8 @@
-# Pho-Compiler <!--[![Build Status](https://travis-ci.org/phonetworks/pho-lib-graph.svg?branch=master)](https://travis-ci.org/phonetworks/pho-lib-graph) -->[![Code Climate](https://img.shields.io/codeclimate/github/phonetworks/pho-compiler.svg)](https://codeclimate.com/github/phonetworks/pho-compiler)
+<p align="center">
+  <img width="375" height="150" src="https://github.com/phonetworks/commons-php/raw/master/.github/cover-smaller.png">
+</p>
+
+# Pho-Compiler <!--[![Build Status](https://travis-ci.org/phonetworks/pho-lib-graph.svg?branch=master)](https://travis-ci.org/phonetworks/pho-lib-graph) [![Code Climate](https://img.shields.io/codeclimate/github/phonetworks/pho-compiler.svg)](https://codeclimate.com/github/phonetworks/pho-compiler)-->
 
 Compiles GraphQL schema into PHP executables for use throughout Phở stack.
 
