@@ -27,7 +27,7 @@
 	"ext-dom": "*",
 	"ext-zip": "*",
 	"ext-curl": "*",
-        "phonetworks/pho-lib-graphql-parser": "^2.1",
+        "phonetworks/pho-lib-graphql-parser": "^3.0",
         "danielstjules/stringy": "^3.0",
         "mustache/mustache": "^2.11",
         "kyeates/psr-loggers": "^1.0",
