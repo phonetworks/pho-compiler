@@ -24,9 +24,8 @@
     ],
     "require": {
         "php":">=5.3.0",
-	"ext-dom": "*",
-	"ext-zip": "*",
-	"ext-curl": "*",
+        "ext-dom": "*",
+        "ext-curl": "*",
         "phonetworks/pho-lib-graphql-parser": "^3.0",
         "danielstjules/stringy": "^3.0",
         "mustache/mustache": "^2.11",
